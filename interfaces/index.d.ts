@@ -5,3 +5,9 @@ export interface SubjectQuery {
 }
 
 export type MarksI = Omit<Marks, "grade">;
+export type ResultI = Omit<Result, "spi">;
+
+export interface ResultMarksI {
+  result: ResultI;
+  marks: MarksI[];
+}

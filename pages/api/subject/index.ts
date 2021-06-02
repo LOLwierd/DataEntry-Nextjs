@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Subject } from ".prisma/client";
+import { Subject } from "@prisma/client";
 import prisma from "../../../lib/prisma";
 import { SubjectQuery } from "../../../interfaces";
 
