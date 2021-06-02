@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
-import { Student } from ".prisma/client";
+import { MarksI } from "../../../interfaces";
+import { completeMarks } from "../../../utils";
 
 export default async function handler(
   req: NextApiRequest,
@@ -19,11 +20,11 @@ export default async function handler(
   }
 }
 async function handlePOST(req: NextApiRequest, res: NextApiResponse<any>) {
-  const studentData: Student = req.body;
-  const result = await prisma.student.create({
-    data: studentData,
-  });
-  res.json(result);
+  const marksDataI: MarksI[] = req.body;
+
+  const marksData = completeMarks(marksDataI);
+  const results = await prisma.marks.createMany({ data: marksData });
+  res.json(results);
 }
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {

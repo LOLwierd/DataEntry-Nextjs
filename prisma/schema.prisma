@@ -51,11 +51,16 @@ model Subject {
 }
 
 model Marks {
-  id      Int     @id @default(autoincrement())
-  result  Result  @relation(references: [id], fields: [fid])
-  subject Subject @relation(fields: [subjectSubCode], references: [subCode])
-  fid     Int
+  id             Int     @id @default(autoincrement())
+  result         Result  @relation(references: [id], fields: [fid])
+  subject        Subject @relation(fields: [subjectSubCode], references: [subCode])
+  fid            Int
   subjectSubCode String
+  internal       Int
+  internalTotal  Int
+  external       Int
+  externalTotal  Int
+  grade          String
 }
 
 // Reference k liye
