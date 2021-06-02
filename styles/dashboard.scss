@@ -1,0 +1,267 @@
+@import './vars';
+
+nav {
+	display: grid;
+	grid-template-columns: 50% 50%;
+	align-items: center;
+	border-bottom: 3px solid var(--fg1);
+	background-color: var(--bg1);
+	padding: 0.7em 1em;
+
+	div {
+		@include flex($justify: flex-start);
+
+		svg {
+			margin-right: 1rem;
+		}
+
+		p {
+			font-family: $font2;
+			margin-left: 8px;
+			font-size: 1.4em;
+		}
+
+		span {
+			font-family: $font2;
+			color: $primary;
+		}
+
+		&:last-child {
+			justify-self: end;
+		}
+	}
+
+	#new-btn {
+		font-family: $font2;
+		padding: 0.5em;
+		border-radius: 5px;
+		color: #fff;
+		background-color: $secondary;
+		margin: 0 1em;
+		border: 3px solid #000;
+	}
+
+	a {
+		font-family: $font2;
+		color: var(--fg2);
+		justify-self: end;
+	}
+}
+
+main {
+	background-color: var(--bg1);
+	width: 90vw;
+	padding: 2em 3em;
+	max-width: 1240px;
+	height: 80vh;
+	overflow-y: hidden;
+	margin: 2em auto;
+	border: 3px solid var(--fg1);
+	border-radius: 4px;
+
+	#search {
+		@include flex($justify: space-between);
+		input {
+			margin: 0.6rem 1em 0.6rem 0;
+			width: 100%;
+		}
+	}
+
+	button {
+		background: var(--fg2);
+		color: var(--bg1);
+		margin: 0 0 0 0.4em;
+		padding: 1em;
+
+		&[type='submit'] {
+			background: var(--accent);
+		}
+	}
+}
+
+#results {
+	width: 100%;
+	overflow-x: auto;
+	overflow-y: auto;
+	height: 90%;
+	margin: 1em 0;
+
+	table {
+		background: var(--bg2);
+		width: 100%;
+		border-radius: 4px;
+		cursor: pointer;
+		border-spacing: 0.8em 0.6em;
+		thead {
+			position: relative;
+			th {
+				position: sticky;
+				top: 0.8em;
+				padding: 0.6em 0.8em;
+				color: var(--bg1);
+				font: 400 14px $font2;
+				line-height: 1;
+				text-align: left;
+				border-radius: 4px;
+				background: var(--accent);
+			}
+		}
+
+		tbody {
+			tr:hover {
+				& > td {
+					border: 1px solid var(--accent);
+				}
+			}
+
+			td {
+				font-weight: 600;
+				padding: 0.6em;
+				background: var(--bg1);
+				color: var(--fg2);
+				border-radius: 4px;
+				text-align: left;
+				border: 1px solid var(--bg2);
+
+				&:nth-child(1),
+				&:nth-child(3) {
+					max-width: 100px;
+					cursor: text;
+				}
+				&:last-child {
+					width: 1px;
+					text-align: center;
+				}
+				button {
+					display: inline-block;
+					padding: 0;
+					background: none;
+					svg {
+						color: var(--accent2);
+						height: 18px;
+						&:not(:last-child) {
+							margin-right: 5px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// New entry
+#new-entry {
+	overflow: auto;
+	height: 70vh;
+
+	form {
+		max-width: 80vw;
+		@include flex($wrap: wrap);
+		input,
+		select,
+		textarea {
+			width: 100%;
+		}
+	}
+	#title {
+		flex-basis: 10%;
+	}
+	#fName {
+		flex-basis: 30%;
+	}
+	#mName {
+		flex-basis: 30%;
+	}
+	#lName {
+		flex-basis: 30%;
+	}
+
+	//row-2
+	#sId {
+		flex-basis: 30%;
+	}
+	#batch {
+		flex-basis: 25%;
+	}
+	#course {
+		flex-basis: 45%;
+	}
+
+	//row-3
+	#sem {
+		flex-basis: 30%;
+	}
+	#eMonth {
+		flex-basis: 25%;
+	}
+	#eYear {
+		flex-basis: 25%;
+	}
+	#type {
+		flex-basis: 25%;
+	}
+
+	// Subject Marks
+	#sCode {
+		flex-basis: 26%;
+	}
+	#sName {
+		flex-basis: 26%;
+	}
+	#internal {
+		flex-basis: 12%;
+	}
+	#external {
+		flex-basis: 12%;
+	}
+	#total {
+		flex-basis: 12%;
+	}
+	#final {
+		flex-basis: 12%;
+	}
+}
+#new-subject {
+	flex-basis: 88%;
+	background: var(--bg2);
+	color: var(--fg2);
+	// padding: 0.8em;
+	// border: 3px solid var(--fg2);
+
+	// border-radius: 0.25rem;
+	// cursor: pointer;
+	// display: flex;
+	// justify-content: center;
+	// align-items: center;
+	// border: solid 3px #ddd;
+	// font-size: 40px;
+	// user-select: none;
+	// // Sorry, just OCD ^_^
+	&:hover {
+		opacity: 0.8;
+		// color: var(--fg1);
+		// border-color: var(--accent);
+	}
+}
+#submit {
+	font-family: $font2;
+	flex-basis: 10%;
+	// padding: 0.8em;
+	border-radius: 5px;
+	color: #fff;
+	background-color: var(--accent);
+	margin-left: 1em;
+	// border: 3px solid var(--fg1);
+}
+#sub-entry {
+	display: flex;
+	align-items: center;
+}
+#remove-sub-btn {
+	padding: 0;
+	background: none;
+	svg {
+		height: 24px;
+	}
+	// border-radius: 50%;
+}

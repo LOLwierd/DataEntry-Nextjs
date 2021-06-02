@@ -1,0 +1,19 @@
+$login-bg: #3eff97;
+$primary: #ff6060;
+$secondary: #629df6;
+$font1: "Raleway", sans-serif;
+$font2: "Bungee", serif;
+
+@mixin abs-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin flex($justify: center, $align: center, $direction: row, $wrap: nowrap) {
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+    flex-flow: $direction $wrap;
+}

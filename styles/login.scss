@@ -1,0 +1,37 @@
+@import './vars';
+
+// Login Page
+#login {
+	background: var(--accent);
+}
+
+#login-card {
+	@include abs-center;
+	@include flex($justify: flex-start, $direction: column);
+	width: 400px;
+	//  height: 0.6 * 100vh;
+
+	h2 {
+		text-align: center;
+		//   color: var(--accent);
+	}
+	form {
+		@include flex($direction: column);
+		margin-top: 2rem;
+		width: 100%;
+	}
+
+	input {
+		display: block;
+		//   padding: 10px 15px;
+		outline: none;
+		width: 100%;
+	}
+
+	button {
+		width: clamp(50px, 100%, 150px);
+		font-weight: 700;
+		background: var(--accent);
+		color: var(--bg1);
+	}
+}
