@@ -1,0 +1,20 @@
+### Create Student
+POST http://localhost:3000/api/student HTTP/1.1
+content-type: application/json
+
+{
+    "title": "MR",
+    "firstName": "Ayaan1",
+    "middleName": "Yusufali",
+    "lastName": "Retiwala",
+    "spuId": "1804101070981",
+    "batch" : "1",
+    "course": "BE",
+    "nationality": "Indian",
+    "address": "Ur Heart",
+    // new Date().toISOString()
+    "dob": "2021-06-02T13:16:38.371Z"
+}
+
+### Search for a student using spuId
+GET http://localhost:3000/api/student/18041010709

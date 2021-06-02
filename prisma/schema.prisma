@@ -16,11 +16,11 @@ enum Title {
 }
 
 model Student {
-  spuId      String   @id @db.VarChar(16)
+  spuId       String   @id @db.VarChar(16)
   title       Title
-  firstName  String
-  middleName String
-  lastName   String
+  firstName   String
+  middleName  String
+  lastName    String
   batch       String
   course      String
   nationality String
@@ -30,31 +30,35 @@ model Student {
 }
 
 model Result {
-  id            Int     @id @default(autoincrement())
-  student       Student @relation(references: [spuId])
-  sem String
+  id        Int     @id @default(autoincrement())
+  student   Student @relation(references: [spuId], fields: [fspuId])
+  fspuId    String  @db.VarChar(16)
+  sem       String
   examMonth String
-  examYear String
-  type String
-  spi  Float
+  examYear  String
+  type      String
+  spi       Float
+  Marks     Marks[]
 }
 
-model Subject{
-  id            Int     @id @default(autoincrement())
-  subCode String
+model Subject {
+  subCode String  @id
   subName String
-  sem String
-  course String
-  batch String
+  sem     String
+  course  String
+  batch   String
+  Marks   Marks[]
 }
 
-model Marks{
-  result Result @relation(referances: [id])
-  subject Subject @relation(referances: [id])
+model Marks {
+  id      Int     @id @default(autoincrement())
+  result  Result  @relation(references: [id], fields: [fid])
+  subject Subject @relation(fields: [subjectSubCode], references: [subCode])
+  fid     Int
+  subjectSubCode String
 }
 
 // Reference k liye
-
 // model Post {
 //   id        Int      @default(autoincrement()) @id
 //   createdAt DateTime @default(now())
