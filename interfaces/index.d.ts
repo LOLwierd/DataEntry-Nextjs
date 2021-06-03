@@ -1,4 +1,5 @@
 import { Marks, Result } from "@prisma/client";
+
 export interface SubjectQuery {
   sem: string;
   batch: string;
@@ -12,3 +13,4 @@ export interface ResultMarksI {
   result: ResultI;
   marks: Omit<MarksI, "fid">[];
 }
+
