@@ -5,7 +5,7 @@ export interface SubjectQuery {
   course: string;
 }
 
-export type MarksI = Omit<Marks, "grade">;
+export type MarksI = Omit<Marks, "grade" | "percentage" | "points">;
 export type ResultI = Omit<Result, "spi">;
 
 export interface ResultMarksI {
