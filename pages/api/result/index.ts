@@ -23,6 +23,7 @@ export default async function handler(
 async function handlePOST(req: NextApiRequest, res: NextApiResponse<any>) {
   const resultDataI: ResultMarksI = req.body;
   const resultData = completeResult(resultDataI);
+  console.log("RESULT DATA", resultData);
   const result = await prisma.result.create({ data: resultData });
   res.json(result);
 }

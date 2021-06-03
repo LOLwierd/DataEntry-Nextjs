@@ -15,7 +15,7 @@ export default async function handler(
       await handlePOST(req, res);
       break;
     default:
-      res.status(405).end(); 
+      res.status(405).end();
       break;
   }
 }
@@ -28,14 +28,14 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
   const subjectQuery: SubjectQuery = req.body;
+  const query = {
+    sem: subjectQuery.sem ,
+    batch:subjectQuery.batch ,
+    course:subjectQuery.course,
+  };
+  console.log(query);
   const results = await prisma.subject.findMany({
-    where: {
-      AND: [
-        { sem: subjectQuery.sem },
-        { batch: subjectQuery.batch },
-        { course: subjectQuery.batch },
-      ],
-    },
+    where: query,
   });
-  res.json(results)
-}
+  res.json(results);
+} 

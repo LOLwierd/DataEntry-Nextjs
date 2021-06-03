@@ -27,7 +27,7 @@ function calculatePercentage(
   external: number,
   externalTotal: number
 ): number {
-  return (internal + external) / (internalTotal + externalTotal);
+  return ((internal + external) / (internalTotal + externalTotal)) * 100;
 }
 
 function calculateSPI(resultMarksI: ResultMarksI): number {
@@ -43,7 +43,8 @@ function calculateSPI(resultMarksI: ResultMarksI): number {
       )
     );
   }, 0);
-  return percentSum / subNum;
+  // This formula wrong man.
+  return percentSum / (subNum * 10);
 }
 
 Number.prototype.between = function between(upper: number, lower: number) {

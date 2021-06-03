@@ -17,4 +17,4 @@ content-type: application/json
 }
 
 ### Search for a student using spuId
-GET http://localhost:3000/api/student/18041010709
+GET http://localhost:3000/api/student/180410107098

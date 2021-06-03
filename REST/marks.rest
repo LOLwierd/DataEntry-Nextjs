@@ -1,0 +1,29 @@
+POST http://localhost:3000/api/marks
+content-type: application/json
+
+[
+    {
+        "fid": 5,
+        "subjectSubCode": "3101076",
+        "internal": 30,
+        "internalTotal": 30,
+        "external": 65,
+        "externalTotal": 70
+    },
+    {
+        "fid": 5,
+        "subjectSubCode": "3101078",
+        "internal": 20,
+        "internalTotal": 30,
+        "external": 55,
+        "externalTotal": 70
+    },
+    {
+        "fid": 5,
+        "subjectSubCode": "3101079",
+        "internal": 15,
+        "internalTotal": 30,
+        "external": 45,
+        "externalTotal": 70
+    }
+]

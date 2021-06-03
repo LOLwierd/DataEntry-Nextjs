@@ -23,6 +23,7 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse<any>) {
   const marksDataI: MarksI[] = req.body;
 
   const marksData = completeMarks(marksDataI);
+  console.log("MARKS DATA", marksData)
   const results = await prisma.marks.createMany({ data: marksData });
   res.json(results);
 }
