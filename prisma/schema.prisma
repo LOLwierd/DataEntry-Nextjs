@@ -30,7 +30,8 @@ model Student {
 }
 
 model Result {
-  id        Int     @id @default(autoincrement())
+  // uuid
+  id        String  @id
   student   Student @relation(references: [spuId], fields: [fspuId])
   fspuId    String  @db.VarChar(16)
   sem       String
@@ -39,6 +40,7 @@ model Result {
   type      String
   spi       Float
   Marks     Marks[]
+  @@unique([sem, fspuId])
 }
 
 model Subject {
@@ -54,13 +56,15 @@ model Marks {
   id             Int     @id @default(autoincrement())
   result         Result  @relation(references: [id], fields: [fid])
   subject        Subject @relation(fields: [subjectSubCode], references: [subCode])
-  fid            Int
+  fid            String
   subjectSubCode String
   internal       Int
   internalTotal  Int
   external       Int
   externalTotal  Int
   grade          String
+  points         Float
+  percentage     Float
 }
 
 // Reference k liye

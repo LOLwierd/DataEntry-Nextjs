@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 import { MarksI } from "../../../interfaces";
 import { completeMarks } from "../../../utils";
+import { Marks } from "@prisma/client";
 
 export default async function handler(
   req: NextApiRequest,
@@ -20,10 +21,7 @@ export default async function handler(
   }
 }
 async function handlePOST(req: NextApiRequest, res: NextApiResponse<any>) {
-  const marksDataI: MarksI[] = req.body;
-
-  const marksData = completeMarks(marksDataI);
-  console.log("MARKS DATA", marksData)
+  const marksData: Marks[] = req.body;
   const results = await prisma.marks.createMany({ data: marksData });
   res.json(results);
 }
