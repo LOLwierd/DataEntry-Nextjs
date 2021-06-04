@@ -42,6 +42,7 @@ h5,
 h6 {
 	font-family: $font2;
 	font-weight: 400;
+	margin-bottom: 0.4em;
 }
 
 button {
@@ -52,11 +53,22 @@ button {
 	border-radius: 0.25em;
 	text-transform: uppercase;
 	background-color: var(--bg1);
+	margin: 0.4em;
+	&.grey {
+		background: var(--fg2);
+		color: var(--bg1);
+		margin: 0 0 0 0.4em;
+	}
+	&.primary {
+		background: var(--accent);
+		color: var(--bg2);
+	}
 	&:active {
 		transform: scale(0.98);
 	}
 	&:hover {
 		background-color: var(--bg2);
+		color: var(--fg2);
 	}
 }
 
@@ -72,10 +84,10 @@ input[type='password'] {
 	cursor: text;
 	display: inline-block;
 	margin: 0 0.6rem 1rem;
-	padding: 0.5em 0.8em;
+	padding: 0.4em 0.8em;
 	font-size: 16px;
 	font-weight: 600;
-	min-width: 3.2em;
+	min-width: 2.8em;
 	background: var(--bg2);
 	border: solid 3px #ddd;
 	border-radius: 0.25em;
@@ -88,6 +100,9 @@ input[type='password'] {
 input[type='number'] {
 	min-width: 3.2em;
 	width: 6em;
+}
+input[type='date'] {
+	padding: 0.2em 0.8em;
 }
 
 input[type='radio'] {
@@ -103,18 +118,17 @@ input[type='radio'].tag {
 	display: none;
 	& + label {
 		display: inline-block;
-		font-weight: 600;
+		font-weight: 700;
 		font-size: 0.9em;
 		width: fit-content;
 		vertical-align: middle;
 		transition: 0.2s;
-		margin: 7px 2px;
-		padding: 0.8em 1em;
+		margin: 0.4rem 0.4rem 0.6rem 0;
+		padding: 0.5em 0.8em;
 		border: 2px solid var(--fg2);
 		border-radius: 0.4em;
 	}
 	&:checked + label {
-		font-weight: 700;
 		color: var(--bg1);
 		background: var(--accent);
 		border-color: var(--accent);
@@ -130,6 +144,8 @@ textarea {
 	border: solid 3px #ddd;
 	border-radius: 0.25em;
 	resize: vertical;
+	width: 100%;
+	max-width: 40em;
 	&:hover,
 	&:focus {
 		border-color: var(--accent);
@@ -140,7 +156,7 @@ textarea {
 select {
 	display: inline-block;
 	margin: 0 0.6rem 1rem;
-	padding: 0.5em 0.8em;
+	padding: 0.4em 0.8em;
 	font-size: 16px;
 	font-weight: 600;
 	min-width: 4em;
@@ -161,28 +177,34 @@ form {
 		margin: 0.4em;
 		width: 100%;
 	}
-	label,
-	.form-control {
-		display: block;
-		margin: 0.4em;
+	button {
+		margin: 0 0.6rem 1rem !important;
+	}
+	label {
 		font-size: 0.8em;
 		font-weight: 700;
 		letter-spacing: 0.8px;
 		color: var(--fg2);
 		text-transform: capitalize;
-		input[type='text'],
-		input[type='number'],
-		input[type='date'],
-		select {
-			width: 100%;
-			display: block;
-			margin: 0.3em 0 0.6em;
-			font-weight: 600;
-		}
 	}
+	// label,
+	// .form-control {
+	// 	display: block;
+	// 	margin: 0.4em;
+
+	// 	input[type='text'],
+	// 	input[type='number'],
+	// 	input[type='date'],
+	// 	select {
+	// 		width: 100%;
+	// 		display: block;
+	// 		margin: 0.3em 0 0.6em;
+	// 		font-weight: 600;
+	// 	}
+	// }
 	.row {
 		width: 100%;
-		@include flex($justify: space-evenly, $wrap: nowrap);
+		@include flex($justify: space-between, $wrap: nowrap);
 	}
 	// &#student-form {
 	// 	p {
@@ -204,6 +226,24 @@ form {
 	// 		}
 	// 	}
 	// }
+}
+
+.formik-control {
+	margin: 0 0.6rem 1rem;
+	text-align: left;
+	label {
+		display: block;
+		margin-bottom: 3px;
+	}
+	input,
+	textarea,
+	select {
+		margin: 0 !important;
+	}
+	input {
+		cursor: text;
+		display: inline-block;
+	}
 }
 
 .col-2 {

@@ -47,7 +47,7 @@ export default function CreateResult() {
 		getSubjects();
 		console.log(subjects);
 	}, []);
-
+	// TODO: Fetch & Add subjects dynamically
 	return (
 		<Formik
 			initialValues={initialValues}
@@ -59,54 +59,74 @@ export default function CreateResult() {
 					getSubjects();
 				}, [values.sem]);
 				return (
-					<Form>
-						<div class="row">
-							<FormikControl name="fspuId" label="SPU Id" />
-							<FormikControl
-								control="select"
-								name="result.sem"
-								label="Semester"
-								options={SEM.map((sem) => ({
-									label: sem,
-									value: sem,
-								}))}
-							/>
-							<FormikControl
-								control="select"
-								name="result.examMonth"
-								label="Exam Month"
-								options={Object.keys(Months).map((key) => ({
-									label: Months[key],
-									value: Months[key],
-								}))}
-							/>
-							<FormikControl
-								control="select"
-								name="result.examYear"
-								label="Exam Year"
-								options={YEAR.map((year) => ({
-									label: year,
-									value: year,
-								}))}
-							/>
-							<FormikControl
-								control="radio"
-								name="result.type"
-								label="Type"
-								options={Object.keys(ExamTypes).map((key) => ({
-									key: ExamTypes[key],
-									value: ExamTypes[key],
-								}))}
-							/>
-						</div>
+					<Form id="new-entry">
+						<FormikControl name="fspuId" label="SPU Id" />
+						<FormikControl
+							control="select"
+							name="result.sem"
+							label="Semester"
+							options={SEM.map((sem) => ({
+								label: sem,
+								value: sem,
+							}))}
+						/>
+						<FormikControl
+							control="select"
+							name="result.examMonth"
+							label="Exam Month"
+							options={Object.keys(Months).map((key) => ({
+								label: Months[key],
+								value: Months[key],
+							}))}
+						/>
+						<FormikControl
+							control="select"
+							name="result.examYear"
+							label="Exam Year"
+							options={YEAR.map((year) => ({
+								label: year,
+								value: year,
+							}))}
+						/>
+						<FormikControl
+							control="radio"
+							name="result.type"
+							label="Type"
+							options={Object.keys(ExamTypes).map((key) => ({
+								key: ExamTypes[key],
+								value: ExamTypes[key],
+							}))}
+						/>
 						<FieldArray name="marks">
 							{({ insert, remove, push }) => (
 								<div>
+									<button
+										className="grey"
+										onClick={() => {
+											push({
+												subjectSubCode: '',
+												internal: undefined,
+												internalTotal: undefined,
+												external: undefined,
+												externalTotal: undefined,
+											});
+										}}
+										style={{ margin: 'auto' }}
+									>
+										Add mark
+									</button>
 									{values.marks.length > 0 &&
 										values.marks.map((mark, index) => {
 											console.log(index);
 											return (
-												<div className="row" key={index}>
+												<div id="new-marks" key={index}>
+													<div className="row">
+														<h3>Entry #{index}</h3>
+														<button type="button" onClick={() => remove(index)}>
+															X
+														</button>
+													</div>
+
 													<FormikControl
 														name={`marks.${index}.subjectSubCode`}
 														label="Subject Code"
@@ -117,7 +137,8 @@ export default function CreateResult() {
 														label="Subject Name"
 														// disabled
 													/>
-													Marks
+													<br />
+													<h5>Marks</h5>
 													<FormikControl
 														name={`marks.${index}.internal`}
 														label="Internal"
@@ -138,37 +159,15 @@ export default function CreateResult() {
 														label="External Total"
 														type="number"
 													/>
-													<div className="col">
-														<button
-															type="button"
-															className="secondary"
-															onClick={() => remove(index)}
-														>
-															X
-														</button>
-													</div>
 												</div>
 											);
 										})}
-									<button
-										type="button"
-										className="secondary"
-										onClick={() => {
-											push({
-												subjectSubCode: '',
-												internal: undefined,
-												internalTotal: undefined,
-												external: undefined,
-												externalTotal: undefined,
-											});
-										}}
-									>
-										Add mark
-									</button>
 								</div>
 							)}
 						</FieldArray>
-						<button type="submit">Submit</button>
+						<button type="submit" className="primary">
+							Submit
+						</button>
 					</Form>
 				);
 			}}

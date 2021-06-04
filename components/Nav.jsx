@@ -34,7 +34,9 @@ export default function Nav() {
 					<Link href="/students/create">
 						<button>&#43; STUDENT</button>
 					</Link>
-					<button>&#43; RESULT</button>
+					<Link href="/results/create">
+						<button>&#43; RESULT</button>
+					</Link>
 					<button onClick={() => setSubjectCreate(1)}>&#43; SUBJECT</button>
 					<button id="new-btn" onclick="location.href='{% url 'search' %}'">
 						SEARCH

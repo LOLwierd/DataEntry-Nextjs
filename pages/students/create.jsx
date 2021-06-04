@@ -37,52 +37,50 @@ export default function CreateStudent() {
 		>
 			{(formik) => {
 				return (
-					<Form>
-						<div class="row">
-							<FormikControl
-								control="select"
-								name="title"
-								label="Title"
-								options={[
-									{ label: 'Mr', value: 'Mr' },
-									{ label: 'Mrs', value: 'Mrs' },
-								]}
-							/>
-							<FormikControl name="firstName" label="First Name" />
-							<FormikControl name="middleName" label="Middle Name" />
-							<FormikControl name="lastName" label="Last Name" />
-						</div>
-						<div className="row">
-							<FormikControl name="spuId" label="SPU Id" />
-							<FormikControl
-								control="select"
-								name="batch"
-								label="Batch"
-								options={BATCHES.map((batch) => ({
-									label: batch,
-									value: batch,
-								}))}
-							/>
-							<FormikControl
-								control="select"
-								name="course"
-								label="Course"
-								options={Object.keys(Courses).map((key) => ({
-									label: Courses[key],
-									value: Courses[key],
-								}))}
-							/>
-							<FormikControl control="date" name="dob" label="Date of Birth" />
+					<Form id="new-entry">
+						<FormikControl
+							control="select"
+							name="title"
+							label="Title"
+							options={[
+								{ label: 'Mr', value: 'Mr' },
+								{ label: 'Mrs', value: 'Mrs' },
+							]}
+						/>
+						<FormikControl name="firstName" label="First Name" />
+						<FormikControl name="middleName" label="Middle Name" />
+						<FormikControl name="lastName" label="Last Name" />
+						<FormikControl name="spuId" label="SPU Id" />
+						<FormikControl
+							control="select"
+							name="batch"
+							label="Batch"
+							options={BATCHES.map((batch) => ({
+								label: batch,
+								value: batch,
+							}))}
+						/>
+						<FormikControl
+							control="select"
+							name="course"
+							label="Course"
+							options={Object.keys(Courses).map((key) => ({
+								label: Courses[key],
+								value: Courses[key],
+							}))}
+						/>
+						<FormikControl control="date" name="dob" label="Date of Birth" />
 
-							<FormikControl name="nationality" label="Nationality" />
-						</div>
+						<FormikControl name="nationality" label="Nationality" />
 						<FormikControl
 							control="textarea"
 							name="address"
 							label="Permanent Address"
 							rows="4"
 						/>
-						<button type="submit">Submit</button>
+						<button className="primary" type="submit">
+							Submit
+						</button>
 					</Form>
 				);
 			}}

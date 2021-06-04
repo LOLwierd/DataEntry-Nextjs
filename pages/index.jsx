@@ -5,8 +5,8 @@ export default function Home() {
 		<>
 			<div id="search">
 				<input type="text" placeholder="SPU-ID" />
-				<button>Advanced</button>
-				<button type="submit">Search</button>
+				<button className="grey">Advanced</button>
+				<button className="primary">Search</button>
 			</div>
 			<div id="results">
 				<table>
