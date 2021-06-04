@@ -11,8 +11,8 @@ generator client {
 }
 
 enum Title {
-  MR
-  MRS
+  Mr
+  Mrs
 }
 
 model Student {
@@ -24,7 +24,7 @@ model Student {
   batch       String
   course      String
   nationality String
-  dob         DateTime
+  dob         String
   address     String
   Result      Result[]
 }
@@ -40,6 +40,7 @@ model Result {
   type      String
   spi       Float
   Marks     Marks[]
+
   @@unique([sem, fspuId])
 }
 
@@ -66,15 +67,3 @@ model Marks {
   points         Float
   percentage     Float
 }
-
-// Reference k liye
-// model Post {
-//   id        Int      @default(autoincrement()) @id
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-//   title     String   @db.VarChar(255)
-//   content   String?
-//   published Boolean  @default(false)
-//   author    User     @relation(fields: [authorId], references: [id])
-//   authorId  Int
-// }

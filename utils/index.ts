@@ -37,7 +37,7 @@ function calculatePercentage(
   } catch (e) {
     throw Error(
       "Error in percentage!! Maybe you forgot to send some attributes?\n" +
-        e.message
+      e.message
     );
   }
 }

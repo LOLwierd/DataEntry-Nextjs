@@ -15,12 +15,14 @@ export default function CreateStudent() {
 		course: Courses.Architecture,
 		nationality: '',
 		address: '',
-		// new Date().toISOString()
 		dob: moment().format('YYYY-MM-DD'),
 	};
 	const createStudent = async (values) => {
 		await axios
-			.post('/api/student', values)
+			.post('/api/student', {
+				...values,
+				dob: moment(values.dob).format('DD-MM-YYYY'),
+			})
 			.then((r) => {
 				console.log(r);
 			})
@@ -42,8 +44,8 @@ export default function CreateStudent() {
 								name="title"
 								label="Title"
 								options={[
-									{ label: 'Mr', value: 'MR' },
-									{ label: 'Mrs', value: 'MRS' },
+									{ label: 'Mr', value: 'Mr' },
+									{ label: 'Mrs', value: 'Mrs' },
 								]}
 							/>
 							<FormikControl name="firstName" label="First Name" />

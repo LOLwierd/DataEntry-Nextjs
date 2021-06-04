@@ -27,5 +27,13 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse<any>) {
 }
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
-  res.status(405).end();
+  const studentsData = await prisma.student.findMany({ select: { spuId: true, firstName: true, lastName: true } })
+  const students = studentsData.map((sD) => {
+    return {
+      "spuId": sD.spuId,
+      "name": sD.firstName + " " + sD.lastName
+    }
+  })
+
+  res.json(students)
 }

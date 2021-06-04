@@ -2,8 +2,8 @@ POST http://localhost:3000/api/subject
 content-type: application/json
 
 {
-    "subCode": "3101069",
-    "subName": "Principles of Hydrogen Bomb",
+    "subCode": "3101011",
+    "subName": "Some Other Subject",
     "sem": "4",
     "course": "Bachelor of Architecture",
     "batch": "2018-2019"
@@ -15,7 +15,7 @@ GET http://localhost:3000/api/subject
 content-type: application/json
 
 {
-    "sem": "3",
+    "sem": "4",
     "batch": "2018-2019",
     "course": "Bachelor of Architecture"
 }

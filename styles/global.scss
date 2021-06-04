@@ -51,8 +51,12 @@ button {
 	border: 0;
 	border-radius: 0.25em;
 	text-transform: uppercase;
+	background-color: var(--bg1);
 	&:active {
 		transform: scale(0.98);
+	}
+	&:hover {
+		background-color: var(--bg2);
 	}
 }
 
@@ -100,12 +104,12 @@ input[type='radio'].tag {
 	& + label {
 		display: inline-block;
 		font-weight: 600;
-		font-size: 1.4em;
+		font-size: 0.9em;
 		width: fit-content;
 		vertical-align: middle;
 		transition: 0.2s;
 		margin: 7px 2px;
-		padding: 0.6em 1em;
+		padding: 0.8em 1em;
 		border: 2px solid var(--fg2);
 		border-radius: 0.4em;
 	}
@@ -252,6 +256,35 @@ li.row1 {
 	border-radius: 10px;
 }
 
+#Modal {
+	position: absolute;
+	z-index: 99999;
+	overflow-x: hidden;
+	overflow-y: auto;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	margin: 5px auto;
+	min-width: 300px;
+	width: fit-content;
+	max-width: calc(0.7 * 1360px);
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+	transition: opacity 0.3s ease-in-out 2s;
+}
+.backdrop {
+	position: fixed;
+	content: '';
+	top: 0;
+	left: 0;
+	overflow-x: hidden;
+	height: 100vh;
+	width: 100%;
+	background: rgba(34, 34, 34, 0.344);
+	& > body {
+		overflow-x: hidden;
+	}
+}
 //loader
 .loader {
 	color: var(--accent2);
@@ -350,20 +383,6 @@ li.row1 {
 		-webkit-transform: rotate(360deg);
 		transform: rotate(360deg);
 	}
-}
-
-//modal
-.modal {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: fixed;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.4);
 }
 
 .split-input {

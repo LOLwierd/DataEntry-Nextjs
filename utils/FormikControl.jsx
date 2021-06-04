@@ -1,5 +1,6 @@
 import { Field, ErrorMessage } from 'formik';
 import moment from 'moment';
+import { Fragment } from 'react';
 
 export default function FormikControl(props) {
 	const { control, ...rest } = props;
@@ -46,7 +47,7 @@ function Textarea(props) {
 	);
 }
 function RadioButtons(props) {
-	const { label, name, ...rest } = props;
+	const { label, name, options, ...rest } = props;
 	return (
 		<div className="formik-control">
 			<label>{label}</label>
@@ -54,17 +55,18 @@ function RadioButtons(props) {
 				{({ field }) => {
 					return options.map((option) => {
 						return (
-							<React.Fragment key={option.key}>
+							<Fragment key={option.key}>
 								<input
 									type="radio"
 									id={option.value}
+									className="tag"
 									{...field}
 									{...rest}
 									value={option.value}
 									checked={field.value === option.value}
 								/>
 								<label htmlFor={option.value}>{option.key}</label>
-							</React.Fragment>
+							</Fragment>
 						);
 					});
 				}}
