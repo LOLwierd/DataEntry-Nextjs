@@ -1,8 +1,11 @@
 import React from 'react';
-
+import dynamic from 'next/dynamic';
+const PrivateRoute = dynamic(() => import('../utils/PrivateRoute'), {
+	ssr: false,
+});
 export default function Home() {
 	return (
-		<>
+		<PrivateRoute>
 			<div id="search">
 				<input type="text" placeholder="SPU-ID" />
 				<button className="grey">Advanced</button>
@@ -195,6 +198,6 @@ export default function Home() {
 					</tbody>
 				</table>
 			</div>
-		</>
+		</PrivateRoute>
 	);
 }

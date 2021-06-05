@@ -60,7 +60,7 @@ export default function CreateResult() {
 				}, [values.sem]);
 				return (
 					<Form id="new-entry">
-						<FormikControl name="fspuId" label="SPU Id" />
+						<FormikControl name="fspuId" label="SPU Id"  required/>
 						<FormikControl
 							control="select"
 							name="result.sem"
@@ -68,7 +68,7 @@ export default function CreateResult() {
 							options={SEM.map((sem) => ({
 								label: sem,
 								value: sem,
-							}))}
+							}))} required
 						/>
 						<FormikControl
 							control="select"
@@ -77,7 +77,7 @@ export default function CreateResult() {
 							options={Object.keys(Months).map((key) => ({
 								label: Months[key],
 								value: Months[key],
-							}))}
+							}))} required
 						/>
 						<FormikControl
 							control="select"
@@ -86,7 +86,7 @@ export default function CreateResult() {
 							options={YEAR.map((year) => ({
 								label: year,
 								value: year,
-							}))}
+							}))} required
 						/>
 						<FormikControl
 							control="radio"
@@ -95,7 +95,7 @@ export default function CreateResult() {
 							options={Object.keys(ExamTypes).map((key) => ({
 								key: ExamTypes[key],
 								value: ExamTypes[key],
-							}))}
+							}))} required
 						/>
 						<FieldArray name="marks">
 							{({ insert, remove, push }) => (

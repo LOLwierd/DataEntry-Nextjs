@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "checkJs": true,
+    "jsx": "react",
+    "forceConsistentCasingInFileNames": true,
+  },"exclude": ["node_modules"]
+}
+j
