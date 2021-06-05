@@ -2,7 +2,12 @@
 
 // Login Page
 #login {
-	background: var(--accent);
+	position: fixed;
+	height: 100vh;
+	width:100vw;
+	top:0;
+	left:0;
+	background: $login-bg;
 }
 
 #login-card {
