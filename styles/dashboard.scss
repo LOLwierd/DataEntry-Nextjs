@@ -183,7 +183,7 @@ main {
   .formik-control-course {
     flex-basis: 45%;
   }
-  .formik-control-dob{
+  .formik-control-dob {
     flex-basis: 30%;
   }
   .formik-control-nationality {
@@ -191,20 +191,20 @@ main {
   }
   //row-4
   .formik-control-address {
-	flex-basis: 100%;
+    flex-basis: 100%;
   }
 
   //new-result
   //row-1
   .formik-control-result-fspuId {
-	flex-basis: 80%;
+    flex-basis: 80%;
   }
   .formik-control-result-sem {
-	flex-basis: 10%;
-  }
-  .load-subjects{
     flex-basis: 10%;
-    margin-top: 0.70rem;
+  }
+  .load-subjects {
+    flex-basis: 10%;
+    margin-top: 0.7rem;
     cursor: pointer;
     margin-left: 4px;
   }
@@ -212,7 +212,7 @@ main {
   .formik-control-result-examMonth {
     flex-basis: 45%;
   }
-  .formik-control-result-examYear{
+  .formik-control-result-examYear {
     flex-basis: 30%;
   }
   .formik-control-result-type {
@@ -244,6 +244,15 @@ main {
     border: 2px solid #555;
     border-radius: 0.3em;
     padding: 0.6em;
+  }
+  #new-subject {
+    margin: 1rem 0.75rem;
+    max-width: 30%;
+    border: 2px solid #555;
+    background-color: #fff;
+    border-radius: 0.3em;
+    padding: 0.6em;
+    color: #000;
   }
 }
 #new-subject {

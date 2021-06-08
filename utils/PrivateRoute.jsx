@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { useSession } from "next-auth/client";
-
 export default function PrivateRoute({ children }) {
   const router = useRouter();
   const [session, loading] = useSession();
@@ -19,5 +18,5 @@ export default function PrivateRoute({ children }) {
       return <>Tum auth nahi ho</>;
     }
   }
-  return <>HI</>;
+  return <>{children}</>;
 }

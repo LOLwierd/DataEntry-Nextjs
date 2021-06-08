@@ -38,12 +38,16 @@ export default function Nav() {
           <Link href="/results/create">
             <button>&#43; RESULT</button>
           </Link>
-          <button onClick={() => setSubjectCreate(1)}>&#43; SUBJECT</button>
+          <Link href="/subjects/create">
+            <button>&#43; SUBJECT</button>
+          </Link>
           <button id="new-btn" onclick="location.href='{% url 'search' %}'">
             SEARCH
           </button>
 
-          <button onClick={()=>signOut({callbackUrl: "/login"})}>LOGOUT</button>
+          <button onClick={() => signOut({ callbackUrl: "/login" })}>
+            LOGOUT
+          </button>
         </div>
       </nav>
     </>

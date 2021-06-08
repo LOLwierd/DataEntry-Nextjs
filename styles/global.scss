@@ -163,7 +163,7 @@ textarea {
   border-radius: 0.25em;
   resize: vertical;
   width: 100%;
-//   max-width: 40em;
+  //   max-width: 40em;
   &:hover,
   &:focus {
     border-color: var(--accent);
@@ -506,49 +506,4 @@ li.row1 {
 .heading {
   margin: 0 0.6rem;
   padding: 0.5em 0.8em;
-}
-
-.select-search__options {
-  list-style: none;
-  padding: 0;
-}
-
-.select-search__row {
-  padding: 0;
-  background-color: #2eb378;
-  margin: 0;
-  &:not(:first-child) {
-    border-top: 1px solid #eee;
-  }
-}
-/**
- * Option
- */
-.select-search__option,
-.select-search__not-found {
-  width: 100%;
-  padding: 4px 0;
-  background: #fff;
-  outline: none;
-  border: none;
-  font-size: 14px;
-  vertical-align: middle;
-  cursor: pointer;
-  margin: auto;
-}
-
-.select-search__option.is-selected {
-  background: #2fcc8b;
-  color: #fff;
-}
-
-.select-search__option.is-highlighted,
-.select-search__option:not(.is-selected):hover {
-  background: rgba(47, 204, 139, 0.1);
-}
-
-.select-search__option.is-highlighted.is-selected,
-.select-search__option.is-selected:hover {
-  background: #2eb378;
-  color: #fff;
 }

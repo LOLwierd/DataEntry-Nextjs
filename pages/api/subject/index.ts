@@ -21,8 +21,8 @@ export default async function handler(
 }
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
-  const subjectData: Subject = req.body;
-  const result = await prisma.subject.create({ data: subjectData });
+  const subjectData: Subject[] = req.body;
+  const result = await prisma.subject.createMany({ data: subjectData });
   res.json(result);
 }
 

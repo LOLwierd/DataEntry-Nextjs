@@ -1,6 +1,6 @@
 
 export const BATCHES = ["2018-2019", "2019-2020", "2020-2021"]
-export const SEM = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+export const SEM = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 export const MONTH = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
 export const YEAR = [
    '2016',

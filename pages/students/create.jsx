@@ -8,6 +8,10 @@ import Context from "../../utils/Context";
 import NProgress from "nprogress"; //nprogress module
 import "nprogress/nprogress.css"; //styles of nprogress
 import * as Yup from "yup";
+import dynamic from 'next/dynamic';
+const PrivateRoute = dynamic(() => import("../../utils/PrivateRoute"), {
+  ssr: false,
+});
 
 export default function CreateStudent({ students }) {
   const { setError, setInfo } = useContext(Context);
@@ -60,7 +64,7 @@ export default function CreateStudent({ students }) {
   };
 
   return (
-    <>
+    <PrivateRoute>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -128,6 +132,6 @@ export default function CreateStudent({ students }) {
           );
         }}
       </Formik>
-    </>
+    </PrivateRoute>
   );
 }

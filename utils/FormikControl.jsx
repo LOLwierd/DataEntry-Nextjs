@@ -1,8 +1,7 @@
 import { Field, ErrorMessage } from "formik";
 import moment from "moment";
 import { Fragment } from "react";
-import SelectSearch from "react-select-search/dist/cjs";
-import { fuzzySearch } from "react-select-search/dist/cjs";
+import Select from "react-select";
 
 export default function FormikControl(props) {
   const { control, ...rest } = props;
@@ -10,7 +9,7 @@ export default function FormikControl(props) {
     case "textarea":
       return <Textarea {...rest} />;
     case "select":
-      return <Select {...rest} />;
+      return <CustomSelect {...rest} />;
     case "radio":
       return <RadioButtons {...rest} />;
     case "checkbox":
@@ -26,6 +25,19 @@ export default function FormikControl(props) {
   }
 }
 const regex = /\./i;
+const customStyles = {
+  control: (provided, state) => ({
+    ...provided,
+    background: "var(--bg2)",
+    border: "solid 3px #ddd",
+    fontSize: "16px",
+    fontWeight: "600",
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    fontSize: "16px",
+  }),
+};
 
 function CustomSelectSearch(props) {
   const { label, name, students, style, ...rest } = props;
@@ -39,14 +51,14 @@ function CustomSelectSearch(props) {
         {({ form, field }) => {
           const { setFieldValue } = form;
           return (
-            <SelectSearch
-              id={name}
+            <Select
+              className="searchable-select"
+              classNamePrefix="react-select"
+              styles={customStyles}
+              isSearchable={true}
               options={students}
-              search
-              filterOptions={fuzzySearch}
-              emptyMessage="Student not found. Maybe you forgot to create it?"
-              placeholder="Select your student"
-              onChange={(value) => {
+              placeholder="Select a Student"
+              onChange={({ value }) => {
                 setFieldValue(name, value);
               }}
             />
@@ -166,7 +178,7 @@ function CheckBoxes(props) {
     </div>
   );
 }
-function Select(props) {
+function CustomSelect(props) {
   const { label, name, style, options, ...rest } = props;
   return (
     <div
