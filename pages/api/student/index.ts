@@ -19,21 +19,27 @@ export default async function handler(
   }
 }
 async function handlePOST(req: NextApiRequest, res: NextApiResponse<any>) {
-  const studentData: Student = req.body;
-  const result = await prisma.student.create({
-    data: studentData,
-  });
-  res.json(result);
+  try {
+    const studentData: Student = req.body;
+    const result = await prisma.student.create({
+      data: studentData,
+    });
+    res.json(result);
+  } catch (e) {
+    res.status(500).end();
+  }
 }
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
-  const studentsData = await prisma.student.findMany({ select: { spuId: true, firstName: true, lastName: true } })
+  const studentsData = await prisma.student.findMany({
+    select: { spuId: true, firstName: true, lastName: true },
+  });
   const students = studentsData.map((sD) => {
     return {
-      "spuId": sD.spuId,
-      "name": sD.firstName + " " + sD.lastName
-    }
-  })
+      spuId: sD.spuId,
+      name: sD.firstName + " " + sD.lastName,
+    };
+  });
 
-  res.json(students)
+  res.json(students);
 }

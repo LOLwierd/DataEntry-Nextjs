@@ -1,6 +1,6 @@
 import { Marks, Result } from "@prisma/client";
-import { randomUUID } from "crypto";
 import { MarksI, ResultI, ResultMarksI } from "../interfaces";
+import { v4 as uuidv4 } from 'uuid';
 
 declare global {
   interface Number {
@@ -35,9 +35,10 @@ function calculatePercentage(
   try {
     return ((internal + external) / (internalTotal + externalTotal)) * 100;
   } catch (e) {
+    const error = e as Error;
     throw Error(
       "Error in percentage!! Maybe you forgot to send some attributes?\n" +
-      e.message
+      error.message
     );
   }
 }
@@ -120,7 +121,7 @@ export function completeResult(resultI: ResultMarksI): {
   resultData: Result;
   marksData: Marks[];
 } {
-  const uuid: string = randomUUID();
+  const uuid: string = uuidv4();
   const marksI: MarksI[] = resultI.marks.map((markI) => {
     let mark: MarksI = Object.assign(markI);
     mark.fid = uuid;

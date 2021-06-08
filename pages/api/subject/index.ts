@@ -27,15 +27,29 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
-  const subjectQuery: SubjectQuery = req.body;
-  const query = {
-    sem: subjectQuery.sem ,
-    batch:subjectQuery.batch ,
-    course:subjectQuery.course,
-  };
-  console.log(query);
-  const results = await prisma.subject.findMany({
-    where: query,
+  // @ts-ignore
+  const subjectQuery: SubjectQuery = req.query;
+  const student = await prisma.student.findUnique({
+    where: { spuId: subjectQuery.spuId },
+    select: { batch: true, course: true },
   });
-  res.json(results);
-} 
+  if (student) {
+    const query = {
+      sem: subjectQuery.sem,
+      batch: student.batch,
+      course: student.course,
+    };
+    console.log(query);
+    const results = await prisma.subject.findMany({
+      where: query,
+      select: { subCode: true, subName: true },
+    });
+    const subjects = results.map((subject)=>{
+      return{
+        subjectSubCode: subject.subCode,
+        subName: subject.subName
+      }
+    })
+    res.json(subjects);
+  } else res.status(500).end();
+}

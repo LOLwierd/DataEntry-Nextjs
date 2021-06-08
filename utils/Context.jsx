@@ -8,6 +8,8 @@ export default Context;
 export const Provider = ({ children }) => {
 	const [subjectCreate, setSubjectCreate] = useState(0);
 	const [user, setUser] = useState(null);
+	const [info, setInfo] = useState(null)
+	const [error, setError] = useState(null)
 
 	return (
 		<Context.Provider
@@ -15,6 +17,10 @@ export const Provider = ({ children }) => {
 				subjectCreate,
 				setSubjectCreate,
 				user,
+				error, 
+				setError,
+				info,
+				setInfo
 			}}
 		>
 			{children}

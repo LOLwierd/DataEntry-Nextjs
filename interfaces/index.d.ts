@@ -1,9 +1,9 @@
 import { Marks, Result } from "@prisma/client";
+import { NextApiRequest } from "next";
 
 export interface SubjectQuery {
   sem: string;
-  batch: string;
-  course: string;
+  spuId: string;
 }
 
 export type MarksI = Omit<Marks, "grade" | "percentage" | "points">;
@@ -13,4 +13,3 @@ export interface ResultMarksI {
   result: ResultI;
   marks: Omit<MarksI, "fid">[];
 }
-
