@@ -27,7 +27,7 @@ export default function CreateResult({ students }) {
     result: result,
     marks: subjects,
   };
-  const createResult = async ({result, marks}) => {
+  const createResult = async ({ result, marks }) => {
     NProgress.start();
     const marksData = marks.map((mark) => {
       delete mark.subName;
@@ -48,7 +48,7 @@ export default function CreateResult({ students }) {
             examYear: "",
             type: "",
           });
-          setSubject([])
+          setSubject([]);
           setInfo("Created Result successfully!");
         } else setError("Error in creating Result!!");
       })
@@ -75,9 +75,9 @@ export default function CreateResult({ students }) {
           },
         })
         .then((r) => {
-          console.log(r.data);
           setSubject(r.data);
-          setInfo("Subjects Loaded!!");
+          if (r.data.length === 0) setError("No Subjects found!!");
+          else setInfo("Subjects Loaded!!");
         })
         .catch((e) => {
           console.error(e);
@@ -271,8 +271,9 @@ export async function getServerSideProps(context) {
   const res = await fetch("http://localhost:3000/api/student");
   const data = await res.json();
   const students = data.map((v) => {
+    const name = v.firstName + " " + v.middleName + " " + v.lastName;
     return {
-      label: v.spuId + ": " + v.name,
+      label: v.spuId + ": " + name,
       value: v.spuId,
     };
   });
