@@ -32,10 +32,15 @@ export default function Layout({ children }) {
     });
     setInfo(null);
   }
-  if (useRouter().pathname == "/login") return <>{children}</>;
+  if (useRouter().pathname == "/login")
+    return (
+      <>
+        {children}
+        <ToastContainer />
+      </>
+    );
   return (
     <>
-      <SubjectCreateModal />
       <Nav />
       <main>{children}</main>
       <ToastContainer />

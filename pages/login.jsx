@@ -1,9 +1,16 @@
 import { getCsrfToken, signIn } from "next-auth/client";
+import { useContext } from "react";
 import { Formik, Form } from "formik";
 import FormikControl from "../utils/FormikControl";
-import axios from "axios";
+import Context from "../utils/Context";
+import { useRouter } from "next/router";
 
 export default function Login({ csrfToken }) {
+  const { setError, setInfo } = useContext(Context);
+  const router = useRouter();
+  if (router.query?.error) {
+    setError("Invalid credentials!");
+  }
   return (
     <>
       <div id="login">
@@ -30,7 +37,12 @@ export default function Login({ csrfToken }) {
               signIn("credentials", {
                 username: values.username,
                 password: values.password,
-                callbackUrl: "/"
+                callbackUrl: "/",
+                events: {
+                  async error(message) {
+                    setError("Invalid Credentials!");
+                  },
+                },
               })
             }
           >
