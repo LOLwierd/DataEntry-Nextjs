@@ -6,7 +6,7 @@ import Context from "../utils/Context";
 import { useRouter } from "next/router";
 
 export default function Login({ csrfToken }) {
-  const { setError, setInfo } = useContext(Context);
+  const { setError } = useContext(Context);
   const router = useRouter();
   if (router.query?.error) {
     setError("Invalid credentials!");
@@ -38,11 +38,6 @@ export default function Login({ csrfToken }) {
                 username: values.username,
                 password: values.password,
                 callbackUrl: "/",
-                events: {
-                  async error(message) {
-                    setError("Invalid Credentials!");
-                  },
-                },
               })
             }
           >
