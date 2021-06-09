@@ -41,9 +41,11 @@ export default function Nav() {
           <Link href="/subjects/create">
             <button>&#43; SUBJECT</button>
           </Link>
-          <button id="new-btn" onclick="location.href='{% url 'search' %}'">
-            SEARCH
-          </button>
+          <Link href="/">
+            <button id="new-btn" onclick="location.href='{% url 'search' %}'">
+              SEARCH
+            </button>
+          </Link>
 
           <button onClick={() => signOut({ callbackUrl: "/login" })}>
             LOGOUT

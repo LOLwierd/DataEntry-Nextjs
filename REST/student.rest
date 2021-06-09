@@ -4,15 +4,14 @@ content-type: application/json
 
 {
     "title": "MR",
-    "firstName": "Ayaan1",
-    "middleName": "Yusufali",
-    "lastName": "Retiwala",
-    "spuId": "1804101070981",
-    "batch" : "1",
-    "course": "BE",
+    "firstName": "Akshar",
+    "middleName": "Bhai",
+    "lastName": "Patel",
+    "spuId": "180410107061",
+    "batch" : "2018-2019",
+    "course": "Bachelor of Architecture",
     "nationality": "Indian",
     "address": "Ur Heart",
-    // new Date().toISOString()
     "dob": "2021-06-02T13:16:38.371Z"
 }
 
@@ -20,4 +19,4 @@ content-type: application/json
 GET http://localhost:3000/api/student/180410107098
 
 ### Get all Students
-GET http://localhost:3000/api/student
+GET http://localhost:3000/api/student?all=true

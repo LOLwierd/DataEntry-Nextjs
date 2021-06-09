@@ -16,7 +16,7 @@ export default function CreateResult({ students }) {
   const [subjects, setSubject] = useState([]);
   const [result, setResult] = useState({
     fspuId: "",
-    sem: "",
+    sem: "1",
     examMonth: Months.NOV,
     examYear: "",
     type: "",
@@ -27,7 +27,7 @@ export default function CreateResult({ students }) {
     result: result,
     marks: subjects,
   };
-  const createResult = async ({ result, marks }) => {
+  const createResult = async ({result, marks}) => {
     NProgress.start();
     const marksData = marks.map((mark) => {
       delete mark.subName;
@@ -40,8 +40,17 @@ export default function CreateResult({ students }) {
       })
       .then((r) => {
         console.log(r);
-        if (r.status == 200) setInfo("Created Result successfully!");
-        else setError("Error in creating Result!!");
+        if (r.status == 200) {
+          setResult({
+            fspuId: "",
+            sem: "1",
+            examMonth: Months.NOV,
+            examYear: "",
+            type: "",
+          });
+          setSubject([])
+          setInfo("Created Result successfully!");
+        } else setError("Error in creating Result!!");
       })
       .catch((e) => {
         console.log("IN error");
@@ -257,20 +266,6 @@ export default function CreateResult({ students }) {
     </PrivateRoute>
   );
 }
-
-// export async function getServerSideProps({ query }) {
-//   const prisma = new PrismaClient();
-
-//   console.log("query", query);
-//   // const results = await prisma.subject.findMany({
-//   // 	where: query,
-//   // });
-
-//   let subjects = [];
-//   return {
-//     props: { subjects: subjects || [] }, // will be passed to the page component as props
-//   };
-// }
 
 export async function getServerSideProps(context) {
   const res = await fetch("http://localhost:3000/api/student");
