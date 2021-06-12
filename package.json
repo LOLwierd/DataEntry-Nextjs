@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 8081"
+    "start": "next start -p 8081",
+    "migrate": "prisma migrate dev"
   },
   "dependencies": {
     "axios": "^0.21.1",
