@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p 8081",
-    "migrate": "prisma migrate dev"
+    "migrate": "prisma migrate deploy"
   },
   "dependencies": {
     "axios": "^0.21.1",
