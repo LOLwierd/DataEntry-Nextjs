@@ -18,3 +18,14 @@ content-type: application/json
     "sem": "4",
     "spuId": "180410107098"
 }
+
+###
+
+GET http://localhost:3000/api/subject
+content-type: application/json
+
+{
+    "sem": "1",
+    "course": "Bachelor of Architecture",
+    "batch": "2018-2019"
+}

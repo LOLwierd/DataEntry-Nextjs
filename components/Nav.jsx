@@ -32,13 +32,13 @@ export default function Nav() {
         </div>
 
         <div>
-          <Link href="/students/create">
+          <Link href="/students/add">
             <button>&#43; STUDENT</button>
           </Link>
-          <Link href="/results/create">
+          <Link href="/results/add">
             <button>&#43; RESULT</button>
           </Link>
-          <Link href="/subjects/create">
+          <Link href="/subjects/add">
             <button>&#43; SUBJECT</button>
           </Link>
           <Link href="/">

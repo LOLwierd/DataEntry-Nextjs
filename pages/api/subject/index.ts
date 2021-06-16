@@ -1,17 +1,17 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { Subject } from "@prisma/client";
-import prisma from "../../../lib/prisma";
-import { SubjectQuery } from "../../../interfaces";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { Subject } from '@prisma/client';
+import prisma from '../../../lib/prisma';
+import { SubjectQuery, SubjectResultQuery } from '../../../interfaces';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   switch (req.method) {
-    case "GET":
+    case 'GET':
       await handleGET(req, res);
       break;
-    case "POST":
+    case 'POST':
       await handlePOST(req, res);
       break;
     default:
@@ -27,8 +27,31 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
+  if (req.query['spuId'])
+    // @ts-ignore
+    subjectResultQuery(req.query, res);
   // @ts-ignore
-  const subjectQuery: SubjectQuery = req.query;
+  else subjectQuery(req.query, res);
+}
+
+async function subjectQuery(subjectQuery: SubjectQuery, res: NextApiResponse) {
+  const results = await prisma.subject.findMany({
+    where: subjectQuery,
+    select: { subCode: true, subName: true },
+  });
+  const subjects = results.map((subject) => {
+    return {
+      subjectSubCode: subject.subCode,
+      subName: subject.subName,
+    };
+  });
+  res.json(subjects);
+}
+
+async function subjectResultQuery(
+  subjectQuery: SubjectResultQuery,
+  res: NextApiResponse
+) {
   const student = await prisma.student.findUnique({
     where: { spuId: subjectQuery.spuId },
     select: { batch: true, course: true },
@@ -44,12 +67,12 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
       where: query,
       select: { subCode: true, subName: true },
     });
-    const subjects = results.map((subject)=>{
-      return{
+    const subjects = results.map((subject) => {
+      return {
         subjectSubCode: subject.subCode,
-        subName: subject.subName
-      }
-    })
+        subName: subject.subName,
+      };
+    });
     res.json(subjects);
   } else res.status(500).end();
 }
