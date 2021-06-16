@@ -11,8 +11,12 @@ $font2: 'Bungee', serif;
 	transform: translate(-50%, -50%);
 }
 
-@mixin flex($justify: center, $align: center, $direction: row, $wrap: nowrap) {
-	display: flex;
+@mixin flex($inline:false, $justify: center, $align: center, $direction: row, $wrap: nowrap) {
+	@if $inline {
+    display: inline-flex;
+  }@else{
+		display: flex;
+	}
 	justify-content: $justify;
 	align-items: $align;
 	flex-flow: $direction $wrap;
