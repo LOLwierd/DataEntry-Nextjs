@@ -35,6 +35,7 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
   if (query) {
     const studentsData = await prisma.student.findMany({});
     res.json(studentsData);
+    return;
   }
   const studentsData = await prisma.student.findMany({
     select: { spuId: true, firstName: true, lastName: true },
