@@ -95,7 +95,7 @@ export default function CreateResult() {
       <aside>
         <h2>Add Subject</h2>
       </aside>
-      <main>
+      <main className='sided'>
         <Formik
           initialValues={initialValues}
           onSubmit={(values, { resetForm }) =>
