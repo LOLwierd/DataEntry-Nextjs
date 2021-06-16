@@ -105,7 +105,9 @@ export default function CreateResult({ students }) {
 			<aside>
 				<h2>Add Result</h2>
 			</aside>
-			<main className='sided'>
+			<main className="sided">
+				<h2>Add Result</h2>
+				<br />
 				<Formik
 					validationSchema={validationSchema}
 					enableReinitialize={true}

@@ -32,7 +32,11 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
     // @ts-ignore
     subjectResultQuery(req.query, res);
   // @ts-ignore
-  else subjectQuery(req.query, res);
+  else if (req.query["batch"]) subjectQuery(req.query, res)
+  else {
+    const results = prisma.subject.findMany({})
+    res.json(results)
+  }
 }
 
 async function subjectQuery(subjectQuery: SubjectQuery, res: NextApiResponse) {

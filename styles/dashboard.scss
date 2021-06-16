@@ -131,6 +131,7 @@ main {
     padding: 0.7em 0.8em;
   }
 }
+<<<<<<< HEAD
 #student-list {
   margin: 0 auto;
   li {
@@ -140,6 +141,17 @@ main {
     border-radius: 4px;
     border: 1px solid var(--fg2);
   }
+=======
+#list {
+	margin: 0 auto;
+	li {
+		@include flex($justify: space-between);
+		margin: 0.8em 1em;
+		padding: 0.6em;
+		border-radius: 4px;
+		border: 1px solid var(--fg2);
+	}
+>>>>>>> 7151ce4e5ab47f6c04528f712b722d1adb0820c7
 }
 #results {
   width: 100%;
