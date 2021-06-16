@@ -79,7 +79,7 @@ export default function CreateResult() {
 	return (
 		<PrivateRoute>
       <aside><h2>Add Subject</h2></aside>
-		<main>	
+		<main className='sided'>	
 			<Formik
 				initialValues={initialValues}
 				onSubmit={(values, { resetForm }) => createSubjects(values, resetForm)}

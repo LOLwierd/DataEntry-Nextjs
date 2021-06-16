@@ -25,7 +25,7 @@ export default function Home({ data }) {
       {data.length == 0 ? (
         <EmptyComponent />
       ) : (
-        <>
+        <main>
           <div id="search">
             <input
               type="text"
@@ -106,7 +106,7 @@ export default function Home({ data }) {
               </table>
             )}
           </div>
-        </>
+        </main>
       )}
     </PrivateRoute>
   );

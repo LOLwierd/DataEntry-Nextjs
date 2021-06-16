@@ -2,8 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
 
 @import './vars';
-@import './login';
-@import './dashboard';
 
 :root {
 	--fg1: #222;
@@ -42,7 +40,7 @@ h5,
 h6 {
 	font-family: $font2;
 	font-weight: 400;
-	margin-bottom: 0.4em;
+	margin-bottom: 0.6em;
 }
 
 button {
@@ -54,6 +52,10 @@ button {
 	text-transform: uppercase;
 	background-color: var(--bg1);
 	margin: 0.4em;
+	svg {
+		height: 16px;
+		fill: var(--bg1);
+	}
 	&.grey {
 		background: var(--fg2);
 		color: var(--bg1);
@@ -69,6 +71,9 @@ button {
 	&:hover {
 		background-color: var(--bg2);
 		color: var(--fg2);
+		svg {
+			fill: var(--fg1);
+		}
 	}
 }
 
@@ -195,7 +200,7 @@ form {
 		width: 100%;
 	}
 	button {
-		margin: 0 0.6rem 1rem !important;
+		margin: 0 0.6rem 1rem;
 	}
 	label {
 		font-size: 0.8em;
@@ -506,3 +511,6 @@ li.row1 {
 	margin: 0 0.6rem;
 	padding: 0.5em 0.8em;
 }
+
+@import './login';
+@import './dashboard';

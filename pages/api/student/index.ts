@@ -32,6 +32,7 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse<any>) {
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
   const query = req.query;
+
   if (query) {
     const studentsData = await prisma.student.findMany({});
     res.json(studentsData);

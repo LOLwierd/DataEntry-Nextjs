@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Form, Formik } from 'formik';
 import moment from 'moment';
 import FormikControl from '../../utils/FormikControl';
@@ -13,8 +13,24 @@ const PrivateRoute = dynamic(() => import('../../utils/PrivateRoute'), {
 	ssr: false,
 });
 
-export default function CreateStudent({ students }) {
+export default function CreateStudent({ data }) {
 	const { setError, setInfo } = useContext(Context);
+	const [students, setStudents] = useState(data);
+	const [searchItem, setSearchItem] = useState(null);
+
+	useEffect(() => {
+		// console.log("use effect called ", searchItem);
+		if (searchItem?.length > 0)
+			setStudents(
+				data.filter(
+					(d) =>
+						d.spuId.includes(searchItem) ||
+						d.name.toLowerCase().includes(searchItem.toLowerCase())
+				)
+			);
+		else setStudents(data);
+	}, [searchItem]);
+
 	const validationSchema = Yup.object().shape({
 		firstName: Yup.string().required('Required'),
 		middleName: Yup.string().required('Required'),
@@ -66,9 +82,37 @@ export default function CreateStudent({ students }) {
 	return (
 		<PrivateRoute>
 			<aside>
-				<h2>Add Student</h2>
+				<form
+					id="search"
+					onSubmit={(e) => {
+						e.preventDefault();
+						setSearchItem(e.target.search.value);
+					}}
+				>
+					<input
+						type="search"
+						name="search"
+						placeholder="SPU-ID/Name"
+						// onChange={(e) => setSearchItem(e.target.value)}
+					/>
+					{/* <button className="grey">Advanced</button> */}
+					<button className="primary" type="submit">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+							<path d="M21 3C11.602 3 4 10.602 4 20s7.602 17 17 17c3.355 0 6.46-.984 9.094-2.656l12.281 12.281 4.25-4.25L34.5 30.281C36.68 27.421 38 23.88 38 20c0-9.398-7.602-17-17-17zm0 4c7.2 0 13 5.8 13 13s-5.8 13-13 13S8 27.2 8 20 13.8 7 21 7z" />
+						</svg>
+					</button>
+				</form>
+				{students.map((student) => (
+					<ul id="student-list">
+						<li>
+							<b>{student.name}</b>
+							<span>{student.spuId}</span>
+						</li>
+					</ul>
+				))}
 			</aside>
-			<main>
+			<main className="sided">
+				<h2>Add Student</h2>
 				<Formik
 					initialValues={initialValues}
 					validationSchema={validationSchema}
@@ -146,4 +190,22 @@ export default function CreateStudent({ students }) {
 			</main>
 		</PrivateRoute>
 	);
+}
+
+export async function getServerSideProps(context) {
+	// TODO: Implement pagination
+	const res = await fetch('http://localhost:3000/api/student?all=true');
+	const data = await res.json();
+	const students = data.map((student) => {
+		let stu = Object.assign(student);
+		stu['name'] =
+			student.firstName + ' ' + student.middleName + ' ' + student.lastName;
+		delete stu['firstName'];
+		delete stu['middleName'];
+		delete stu['lastName'];
+		return stu;
+	});
+	return {
+		props: { data: students },
+	};
 }
