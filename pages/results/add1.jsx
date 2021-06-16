@@ -15,18 +15,22 @@ const PrivateRoute = dynamic(() => import('../../utils/PrivateRoute'), {
 import 'nprogress/nprogress.css'; //styles of nprogress
 
 export default function CreateResult({ students }) {
-	const [subjects, setSubject] = useState([]);
+	const [subjects, setSubjects] = useState([]);
+	const [result, setResult] = useState({});
 
 	const { setError, setInfo } = useContext(Context);
 
 	const resultValues = {
 		fspuId: '',
 		sem: '1',
-		examMonth: Months.NOV,
+		examMonth: Months.JAN,
 		examYear: YEAR[0],
 		type: ExamTypes.Regular,
 	};
-	const subjectValues = { marks: subjects };
+	const subjectValues = {
+		result: result,
+		marks: subjects,
+	};
 	// This not working TODO Validation
 	const validationSchema = Yup.object().shape({
 		result: Yup.object().shape({
@@ -57,7 +61,7 @@ export default function CreateResult({ students }) {
 						examYear: '',
 						type: '',
 					});
-					setSubject([]);
+					setSubjects([]);
 					setInfo('Created Result successfully!');
 				} else setError('Error in creating Result!!');
 			})
@@ -72,6 +76,7 @@ export default function CreateResult({ students }) {
 	};
 	const getSubjects = async (values) => {
 		const { fspuId, sem } = values;
+		setResult(values);
 		if (fspuId && sem) {
 			NProgress.start();
 			await axios
@@ -82,7 +87,7 @@ export default function CreateResult({ students }) {
 					},
 				})
 				.then((r) => {
-					setSubject(r.data);
+					setSubjects(r.data);
 					if (r.data.length === 0) setError('No Subjects found!!');
 					else setInfo('Subjects Loaded!!');
 				})
@@ -100,30 +105,20 @@ export default function CreateResult({ students }) {
 		<PrivateRoute>
 			<aside>
 				<Formik
-					validationSchema={validationSchema}
+					// validationSchema={validationSchema}
 					initialValues={resultValues}
 					onSubmit={getSubjects}
 				>
 					{({ values, isSubmitting }) => {
 						return (
-							<Form id="new-entry">
-								<div className="row">
-									<FormikControl
-										name="fspuId"
-										label="SPU Id"
-										control="select-search"
-										students={students}
-									/>
-									<FormikControl
-										control="select"
-										name="sem"
-										label="Semester"
-										options={SEM.map((sem) => ({
-											label: sem,
-											value: sem,
-										}))}
-									/>
-								</div>
+							<Form id="new-entry" style={{ margin: '1em' }}>
+								<FormikControl
+									name="fspuId"
+									label="SPU Id"
+									control="select-search"
+									students={students}
+								/>
+
 								<div className="row">
 									<FormikControl
 										control="select"
@@ -145,6 +140,17 @@ export default function CreateResult({ students }) {
 										}))}
 										required
 									/>
+								</div>
+								<div className="row">
+									<FormikControl
+										control="select"
+										name="sem"
+										label="Semester"
+										options={SEM.map((sem) => ({
+											label: sem,
+											value: sem,
+										}))}
+									/>
 									<FormikControl
 										control="radio"
 										name="type"
@@ -156,6 +162,7 @@ export default function CreateResult({ students }) {
 										required
 									/>
 								</div>
+
 								<button type="submit" className="primary">
 									Get Subjects
 								</button>
@@ -201,6 +208,7 @@ export default function CreateResult({ students }) {
 											>
 												{values.marks.length > 0 &&
 													values.marks.map((mark, index) => {
+														console.log(mark);
 														return (
 															<div id="new-marks" key={index}>
 																<div
@@ -210,7 +218,10 @@ export default function CreateResult({ students }) {
 																		alignItems: 'center',
 																	}}
 																>
-																	<h3>Entry #{index}</h3>
+																	<h3>
+																		{mark?.subjectSubCode} &nbsp; | &nbsp;
+																		{mark?.subName}
+																	</h3>
 																	<button
 																		type="button"
 																		onClick={() => remove(index)}
@@ -219,7 +230,7 @@ export default function CreateResult({ students }) {
 																	</button>
 																</div>
 																<div className="row">
-																	<FormikControl
+																	{/* <FormikControl
 																		name={`marks.${index}.subjectSubCode`}
 																		label="Subject Code"
 																		style={{ flexBasis: '20%' }}
@@ -230,7 +241,7 @@ export default function CreateResult({ students }) {
 																		label="Subject Name"
 																		style={{ flexBasis: '40%' }}
 																		disabled
-																	/>
+																	/> */}
 																	<br />
 																	<FormikControl
 																		name={`marks.${index}.internal`}
