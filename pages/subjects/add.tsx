@@ -9,8 +9,8 @@ import "nprogress/nprogress.css";
 import Context from "../../utils/Context";
 import dynamic from "next/dynamic";
 import { Subject } from "@prisma/client";
-import prisma from '../../lib/prisma';
-import { GetServerSideProps } from 'next';
+import prisma from "../../lib/prisma";
+import { GetServerSideProps } from "next";
 const PrivateRoute = dynamic(() => import("../../utils/PrivateRoute"), {
   ssr: false,
 });
@@ -24,7 +24,7 @@ export default function CreateResult({ data }: { data: Subject[] }) {
   const [numSub, setAddSub] = useState(1);
   const { setError, setInfo, batches, courses } = useContext(Context);
   const [searchItem, setSearchItem] = useState<string | null>(null);
-  const [subjectData, setSubjectData] = useState(data)
+  const [subjectData, setSubjectData] = useState(data);
   const [subjects, setSubjects] = useState<FormikInitialValues["subjects"]>([]);
   const initialValues: FormikInitialValues = {
     subject: {
@@ -45,9 +45,7 @@ export default function CreateResult({ data }: { data: Subject[] }) {
               d.subName.toLowerCase().includes(searchItem.toLowerCase())
           )
         );
-    }
-    else setSubjectData(data);
-
+    } else setSubjectData(data);
   }, [searchItem]);
   const getSubjects = async (values: FormikInitialValues["subject"]) => {
     const { courseId, batchId, sem } = values;
@@ -85,6 +83,10 @@ export default function CreateResult({ data }: { data: Subject[] }) {
     values: FormikInitialValues,
     resetForm: Function
   ) => {
+    if (values.subjects.length === 0) {
+      setError("Please enter Subjects!!");
+      return;
+    }
     console.log("SUBMIT CALLED!!");
     const subjects = values.subjects.map((subject) => {
       return { ...subject, ...values.subject };
@@ -109,35 +111,16 @@ export default function CreateResult({ data }: { data: Subject[] }) {
         NProgress.done();
       });
   };
-  const getAllSubjects = async () => {
-    await axios
-      .get("/api/subject")
-      .then((r) => {
-        const subjects = r.data.map(
-          (subject: Pick<Subject, "subCode" | "subName">) => {
-            return { ...subject, enabled: false };
-          }
-        );
-        setSubjects(subjects);
-        if (r.data.length === 0) setError("No Subjects found!!");
-        else setInfo("Subjects Loaded!!");
-      })
-      .catch((e) => {
-        console.error(e);
-        setError("Error in loading subjects!");
-      })
-  }
-
   return (
     <PrivateRoute>
       <aside>
         <form
           id="search"
-        // onSubmit={(e) => {
-        // 	e.preventDefault();
-        // 	// @ts-ignore
-        // 	setSearchItem(e.target.search.value);
-        // }}
+          // onSubmit={(e) => {
+          // 	e.preventDefault();
+          // 	// @ts-ignore
+          // 	setSearchItem(e.target.search.value);
+          // }}
         >
           <input
             type="search"
@@ -153,22 +136,21 @@ export default function CreateResult({ data }: { data: Subject[] }) {
           </button>
         </form>
         {data.length === 0 ? (
-          <h3 style={{ margin: '0.8em 1em', textAlign: 'center' }}>No Match Found</h3>
-        ) :
-          (<ul id="list">
+          <h3 style={{ margin: "0.8em 1em", textAlign: "center" }}>
+            No Match Found
+          </h3>
+        ) : (
+          <ul id="list">
             {subjectData.map((subject) => (
               <li>
                 <b>{subject.subName}</b>
                 <span>{subject.subCode}</span>
               </li>
-            )
-            )}
+            ))}
           </ul>
-
-          )
-        }
+        )}
       </aside>
-      <main className='sided'>
+      <main className="sided">
         <h2>Add Subject</h2>
         <br />
         <Formik
@@ -214,7 +196,7 @@ export default function CreateResult({ data }: { data: Subject[] }) {
                     }))}
                     required
                   />
-                  <div
+                  {/* <div
                     className="load-subjects"
                     onClick={() => getSubjects(values.subject)}
                     title="Load Subjects"
@@ -226,7 +208,7 @@ export default function CreateResult({ data }: { data: Subject[] }) {
                       alt="Load Subjects"
                       className="load-subjects"
                     />
-                  </div>
+                  </div> */}
                 </div>
                 <FieldArray name="subjects">
                   {({ insert, remove, push }) => (
@@ -339,15 +321,15 @@ export default function CreateResult({ data }: { data: Subject[] }) {
           }}
         </Formik>
       </main>{" "}
-    </PrivateRoute >
+    </PrivateRoute>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
   // TODO: Implement pagination
-  const subjects = await prisma.subject.findMany({})
+  const subjects = await prisma.subject.findMany({});
 
   return {
     props: { data: subjects },
   };
-}
+};
