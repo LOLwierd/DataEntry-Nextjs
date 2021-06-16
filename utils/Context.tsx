@@ -27,10 +27,11 @@ export const Provider = ({ children }: { children: React.Component }) => {
   useEffect(() => {
     axios.get("/api/batch").then((data) => {
       setBatches(data.data);
-    });
+    }).catch((e) => console.log("Error Fetching Batch", e)
+    );
     axios.get("/api/course").then((data) => {
       setCourses(data.data);
-    });
+    }).catch((e) => console.log("Error Fetching Courses", e))
   }, []);
 
   return (

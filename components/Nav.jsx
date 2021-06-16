@@ -48,7 +48,10 @@ export default function Nav() {
 						</button>
 					</NavLink>
 
-					<button onClick={() => signOut({ callbackUrl: '/login' })}>
+					<button
+						className="grey"
+						onClick={() => signOut({ callbackUrl: '/login' })}
+					>
 						LOGOUT
 					</button>
 				</div>
