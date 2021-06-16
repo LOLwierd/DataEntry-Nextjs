@@ -20,8 +20,8 @@ interface FormikInitialValues {
   middleName: string;
   lastName: string;
   spuId: string;
-  batch: string;
-  course: string;
+  batchId: number;
+  courseId: number;
   nationality: string;
   address: string;
   dob: string;
@@ -32,7 +32,7 @@ interface StudentAdd extends Omit<Student, "fName" | "mName" | "lName"> {
 }
 
 export default function CreateStudent({ data }: { data: StudentAdd[] }) {
-  const { setError, setInfo } = useContext(Context);
+  const { setError, setInfo, batches, courses } = useContext(Context);
   const [students, setStudents] = useState(data);
   const [searchItem, setSearchItem] = useState<string | null>(null);
 
@@ -56,19 +56,20 @@ export default function CreateStudent({ data }: { data: StudentAdd[] }) {
     middleName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
     spuId: Yup.string().required("Required"),
-    batch: Yup.string().required("Required"),
+    batchId: Yup.number().required("Required"),
+    courseId: Yup.number().required("Required"),
     nationality: Yup.string().required("Required"),
     address: Yup.string().required("Required"),
   });
-  const initialValues = {
+  const initialValues: FormikInitialValues = {
     title: "Mr",
     firstName: "",
     middleName: "",
     lastName: "",
     spuId: "",
-    batch: "2018-2019",
-    course: Courses.Architecture,
-    nationality: "",
+    batchId: 1,
+    courseId: 1,
+    nationality: "Indian",
     address: "",
     dob: moment().format("YYYY-MM-DD"),
   };
@@ -109,6 +110,7 @@ export default function CreateStudent({ data }: { data: StudentAdd[] }) {
           id="search"
           onSubmit={(e) => {
             e.preventDefault();
+            //@ts-ignore
             setSearchItem(e.target.search.value);
           }}
         >
@@ -162,24 +164,22 @@ export default function CreateStudent({ data }: { data: StudentAdd[] }) {
                   <FormikControl name="spuId" label="SPU Id" />
                   <FormikControl
                     control="select"
-                    name="batch"
+                    name="batchId"
                     label="Batch"
-                    options={BATCHES.map((batch) => ({
-                      label: batch,
-                      value: batch,
+                    options={batches.map((batch) => ({
+                      label: batch.batch,
+                      value: batch.batchId,
                     }))}
                   />
                 </div>
                 <div className="row">
                   <FormikControl
                     control="select"
-                    name="course"
+                    name="courseId"
                     label="Course"
-                    options={Object.keys(Courses).map((key) => ({
-                      // @ts-ignore
-                      label: Courses[key],
-                      // @ts-ignore
-                      value: Courses[key],
+                    options={courses.map((course) => ({
+                      label: course.course,
+                      value: course.courseId,
                     }))}
                   />
                   <FormikControl
@@ -195,7 +195,7 @@ export default function CreateStudent({ data }: { data: StudentAdd[] }) {
                       { label: "Indian", value: "Indian" },
                       { label: "Other", value: "Other" },
                     ]}
-                  />{" "}
+                  />
                 </div>
                 <div className="row">
                   <FormikControl

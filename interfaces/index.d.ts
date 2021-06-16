@@ -7,8 +7,8 @@ export interface SubjectResultQuery {
 }
 export interface SubjectQuery {
   sem: string;
-  course: string;
-  batch: string;
+  courseId: number;
+  batchId: number;
 }
 
 export type MarksI = Omit<Marks, "grade" | "percentage" | "points">;

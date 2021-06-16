@@ -26,6 +26,7 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse<any>) {
     });
     res.json(result);
   } catch (e) {
+    console.log(e)
     res.status(500).end();
   }
 }

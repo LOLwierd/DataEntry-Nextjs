@@ -2,7 +2,7 @@ import { useContext } from "react";
 import axios from "axios";
 import { FieldArray, Form, Formik } from "formik";
 import FormikControl from "../../utils/FormikControl";
-import { SEM, BATCHES, Courses } from "../../interfaces/constants";
+import { SEM } from "../../interfaces/constants";
 import { useEffect, useState } from "react";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
@@ -14,33 +14,33 @@ const PrivateRoute = dynamic(() => import("../../utils/PrivateRoute"), {
 });
 
 interface FormikInitialValues {
-  subject: { sem: string; course: string; batch: string };
+  subject: { sem: string; courseId: number; batchId: number };
   subjects: { subCode: string; subName: string }[];
 }
 
 export default function CreateResult() {
   const [numSub, setAddSub] = useState(1);
-  const { setError, setInfo } = useContext(Context);
+  const { setError, setInfo, batches, courses } = useContext(Context);
   const [subjects, setSubjects] = useState<FormikInitialValues["subjects"]>([]);
   const initialValues: FormikInitialValues = {
     subject: {
       sem: SEM[0],
-      course: Courses["Architecture"],
-      batch: BATCHES[0],
+      courseId: 1,
+      batchId: 1,
     },
     subjects: [],
   };
   const getSubjects = async (values: FormikInitialValues["subject"]) => {
-    const { course, batch, sem } = values;
+    const { courseId, batchId, sem } = values;
     console.log(values);
-    if (course && sem && batch) {
+    if (courseId && sem && batchId) {
       NProgress.start();
       await axios
         .get("/api/subject", {
           params: {
             sem: sem,
-            course: course,
-            batch: batch,
+            courseId: courseId,
+            batchId: batchId,
           },
         })
         .then((r) => {
@@ -95,7 +95,7 @@ export default function CreateResult() {
       <aside>
         <h2>Add Subject</h2>
       </aside>
-      <main className='sided'>
+      <main className="sided">
         <Formik
           initialValues={initialValues}
           onSubmit={(values, { resetForm }) =>
@@ -111,11 +111,9 @@ export default function CreateResult() {
                     name="subject.course"
                     label="Course"
                     style={{ flexBasis: "50%" }}
-                    options={Object.keys(Courses).map((key) => ({
-                      //@ts-ignore
-                      label: Courses[key],
-                      //@ts-ignore
-                      value: Courses[key],
+                    options={courses.map((course) => ({
+                      label: course.course,
+                      value: course.courseId,
                     }))}
                     required
                   />
@@ -135,9 +133,9 @@ export default function CreateResult() {
                     name="subject.batch"
                     label="Batch"
                     style={{ flexBasis: "30%" }}
-                    options={BATCHES.map((batch) => ({
-                      label: batch,
-                      value: batch,
+                    options={batches.map((batch) => ({
+                      label: batch.batch,
+                      value: batch.batchId,
                     }))}
                     required
                   />

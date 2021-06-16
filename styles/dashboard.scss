@@ -1,396 +1,396 @@
-@import './vars';
+@import "./vars";
 
 nav {
-	display: grid;
-	grid-template-columns: 50% 50%;
-	align-items: center;
-	border-bottom: 3px solid var(--fg1);
-	background-color: var(--bg1);
-	padding: 0.7em 1em;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-items: center;
+  border-bottom: 3px solid var(--fg1);
+  background-color: var(--bg1);
+  padding: 0.7em 1em;
 
-	div {
-		@include flex($justify: flex-start);
+  div {
+    @include flex($justify: flex-start);
 
-		svg {
-			margin-right: 1rem;
-		}
+    svg {
+      margin-right: 1rem;
+    }
 
-		p {
-			font-family: $font2;
-			margin-left: 8px;
-			font-size: 1.4em;
-		}
+    p {
+      font-family: $font2;
+      margin-left: 8px;
+      font-size: 1.4em;
+    }
 
-		span {
-			font-family: $font2;
-			color: $primary;
-		}
+    span {
+      font-family: $font2;
+      color: $primary;
+    }
 
-		&:last-child {
-			justify-self: end;
-		}
-	}
+    &:last-child {
+      justify-self: end;
+    }
+  }
 
-	#new-btn {
-		font-family: $font2;
-		padding: 0.5em;
-		border-radius: 5px;
-		color: #fff;
-		background-color: $secondary;
-		margin: 0 1em;
-		border: 3px solid #000;
-	}
+  #new-btn {
+    font-family: $font2;
+    padding: 0.5em;
+    border-radius: 5px;
+    color: #fff;
+    background-color: $secondary;
+    margin: 0 1em;
+    border: 3px solid #000;
+  }
 
-	a {
-		font-family: $font2;
-		color: var(--fg2);
-		justify-self: end;
-	}
+  a {
+    font-family: $font2;
+    color: var(--fg2);
+    justify-self: end;
+  }
 }
 
 aside {
-	z-index: 40;
-	position: fixed;
-	display: block;
-	left: 0;
-	height: 100vh;
-	width: 300px;
-	background: #fff;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-	// margin: 20px 15px;
-	padding: 1.2em 0;
-	// height: fit-content;
-	border-right: 3px solid var(--fg1);
+  z-index: 40;
+  position: fixed;
+  display: block;
+  left: 0;
+  height: 100vh;
+  width: 300px;
+  background: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  // margin: 20px 15px;
+  padding: 1.2em 0;
+  // height: fit-content;
+  border-right: 3px solid var(--fg1);
 
-	h3 {
-		margin: 0 10px;
-	}
-	ul {
-		height: 100%;
-	}
-	li {
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		margin-bottom: 10px;
-		padding: 10px 20px;
-		font: 400 16px $font1;
-		transition: 0.2s;
-		color: var(--dark);
-		svg {
-			height: 1.4em;
-			width: 1.4em;
-			margin-right: 10px;
-		}
-		&.active,
-		&:hover {
-			padding-left: 20px;
-			color: var(--primary);
-			// svg path {
-			//   stroke: var(--primary);
-			//   stroke-width: 0.5px;
-			//   fill: transparent;
-			// }
-		}
-	}
-	.active {
-		font-weight: 700;
-		color: var(--primary);
-		border-right: 3px solid var(--primary);
-		// svg path {
-		//   stroke: var(--primary);
-		//   stroke-width: 0.5px;
-		//   fill: transparent;
-		// }
-	}
+  h3 {
+    margin: 0 10px;
+  }
+  ul {
+    height: 100%;
+  }
+  li {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    font: 400 16px $font1;
+    transition: 0.2s;
+    color: var(--dark);
+    svg {
+      height: 1.4em;
+      width: 1.4em;
+      margin-right: 10px;
+    }
+    &.active,
+    &:hover {
+      padding-left: 20px;
+      color: var(--primary);
+      // svg path {
+      //   stroke: var(--primary);
+      //   stroke-width: 0.5px;
+      //   fill: transparent;
+      // }
+    }
+  }
+  .active {
+    font-weight: 700;
+    color: var(--primary);
+    border-right: 3px solid var(--primary);
+    // svg path {
+    //   stroke: var(--primary);
+    //   stroke-width: 0.5px;
+    //   fill: transparent;
+    // }
+  }
 }
 
 main {
-	background-color: var(--bg1);
-	// width: 90vw;
-	padding: 2em;
-	max-width: 1240px;
-	height: 80vh;
-	overflow-y: hidden;
-	margin: 2em auto;
-	border: 3px solid var(--fg1);
-	border-radius: 4px;
-	&.sided {
-		margin: 10px 10px 0 320px;
-	}
+  background-color: var(--bg1);
+  // width: 90vw;
+  padding: 2em;
+  max-width: 1240px;
+  height: 80vh;
+  overflow-y: hidden;
+  margin: 2em auto;
+  border: 3px solid var(--fg1);
+  border-radius: 4px;
+  &.sided {
+    margin: 10px 10px 0 320px;
+  }
 }
 #search {
-	@include flex($justify: space-between);
-	input {
-		margin: 0.6rem 0.2em 0.6rem 1em;
-		width: 100%;
-	}
-	button {
-		margin: 0.6rem 1em 0.6rem 0.2em;
+  @include flex($justify: space-between);
+  input {
+    margin: 0.6rem 0.2em 0.6rem 1em;
+    width: 100%;
+  }
+  button {
+    margin: 0.6rem 1em 0.6rem 0.2em;
 
-		padding: 0.7em 0.8em;
-	}
+    padding: 0.7em 0.8em;
+  }
 }
 #student-list {
-	margin: 0 auto;
-	li {
-		@include flex($justify: space-between);
-		margin: 0.8em 1em;
-		padding: 0.6em;
-		border-radius: 4px;
-		border: 1px solid var(--fg2);
-	}
+  margin: 0 auto;
+  li {
+    @include flex($justify: space-between);
+    margin: 0.8em 1em;
+    padding: 0.6em;
+    border-radius: 4px;
+    border: 1px solid var(--fg2);
+  }
 }
 #results {
-	width: 100%;
-	overflow-x: auto;
-	overflow-y: auto;
-	height: 90%;
-	margin: 1em 0;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: auto;
+  height: 90%;
+  margin: 1em 0;
 
-	table {
-		background: var(--bg2);
-		width: 100%;
-		border-radius: 4px;
-		cursor: pointer;
-		border-spacing: 0.8em 0.6em;
-		thead {
-			position: relative;
-			th {
-				position: sticky;
-				top: 0.8em;
-				padding: 0.6em 0.8em;
-				color: var(--bg1);
-				font: 400 14px $font2;
-				line-height: 1;
-				text-align: left;
-				border-radius: 4px;
-				background: var(--accent);
-			}
-		}
+  table {
+    background: var(--bg2);
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    border-spacing: 0.8em 0.6em;
+    thead {
+      position: relative;
+      th {
+        position: sticky;
+        top: 0.8em;
+        padding: 0.6em 0.8em;
+        color: var(--bg1);
+        font: 400 14px $font2;
+        line-height: 1;
+        text-align: left;
+        border-radius: 4px;
+        background: var(--accent);
+      }
+    }
 
-		tbody {
-			tr:hover {
-				& > td {
-					border: 1px solid var(--accent);
-				}
-			}
+    tbody {
+      tr:hover {
+        & > td {
+          border: 1px solid var(--accent);
+        }
+      }
 
-			td {
-				font-weight: 600;
-				padding: 0.4em 0.6em;
-				background: var(--bg1);
-				color: var(--fg2);
-				border-radius: 4px;
-				text-align: left;
-				border: 1px solid var(--bg2);
+      td {
+        font-weight: 600;
+        padding: 0.4em 0.6em;
+        background: var(--bg1);
+        color: var(--fg2);
+        border-radius: 4px;
+        text-align: left;
+        border: 1px solid var(--bg2);
 
-				&:nth-child(1),
-				&:nth-child(3) {
-					max-width: 100px;
-					cursor: text;
-				}
-				&:last-child {
-					width: 1px;
-					text-align: center;
-				}
-				button {
-					display: inline-block;
-					padding: 0;
-					background: none;
-					svg {
-						padding: 3px;
-						border-radius: 50%;
-						color: var(--accent2);
-						height: 20px;
-						&:not(:last-child) {
-							margin-right: 5px;
-						}
-						&:hover {
-							background: var(--bg2);
-						}
-					}
-				}
-			}
-		}
-	}
+        &:nth-child(1),
+        &:nth-child(3) {
+          max-width: 100px;
+          cursor: text;
+        }
+        &:last-child {
+          width: 1px;
+          text-align: center;
+        }
+        button {
+          display: inline-block;
+          padding: 0;
+          background: none;
+          svg {
+            padding: 3px;
+            border-radius: 50%;
+            color: var(--accent2);
+            height: 20px;
+            &:not(:last-child) {
+              margin-right: 5px;
+            }
+            &:hover {
+              background: var(--bg2);
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 // New entry
 .select-search {
-	display: block;
-	width: 100%;
-	input {
-		width: 100%;
-	}
+  display: block;
+  width: 100%;
+  input {
+    width: 100%;
+  }
 }
 #new-entry {
-	overflow: auto;
-	// height: 70vh;
-	max-width: 72em;
-	input,
-	select,
-	textarea {
-		width: 100%;
-	}
+  overflow: auto;
+  // height: 70vh;
+  max-width: 72em;
+  input,
+  select,
+  textarea {
+    width: 100%;
+  }
 
-	//new-student
-	.formik-control-title {
-		flex-basis: 10%;
-	}
-	.formik-control-firstName {
-		flex-basis: 30%;
-	}
-	.formik-control-middleName {
-		flex-basis: 30%;
-	}
-	.formik-control-lastName {
-		flex-basis: 30%;
-	}
-	//row-2
-	.formik-control-spuId {
-		flex-basis: 70%;
-	}
-	.formik-control-batch {
-		flex-basis: 30%;
-	}
-	//row-3
-	.formik-control-course {
-		flex-basis: 45%;
-	}
-	.formik-control-dob {
-		flex-basis: 30%;
-	}
-	.formik-control-nationality {
-		flex-basis: 25%;
-	}
-	//row-4
-	.formik-control-address {
-		flex-basis: 100%;
-	}
+  //new-student
+  .formik-control-title {
+    flex-basis: 10%;
+  }
+  .formik-control-firstName {
+    flex-basis: 30%;
+  }
+  .formik-control-middleName {
+    flex-basis: 30%;
+  }
+  .formik-control-lastName {
+    flex-basis: 30%;
+  }
+  //row-2
+  .formik-control-spuId {
+    flex-basis: 70%;
+  }
+  .formik-control-batchId {
+    flex-basis: 30%;
+  }
+  //row-3
+  .formik-control-courseId {
+    flex-basis: 45%;
+  }
+  .formik-control-dob {
+    flex-basis: 30%;
+  }
+  .formik-control-nationality {
+    flex-basis: 25%;
+  }
+  //row-4
+  .formik-control-address {
+    flex-basis: 100%;
+  }
 
-	//new-result
-	//row-1
-	.formik-control-result-fspuId {
-		flex-basis: 80%;
-	}
-	.formik-control-result-sem {
-		flex-basis: 10%;
-	}
-	.load-subjects {
-		flex-basis: 10%;
-		margin-top: 0.7rem;
-		cursor: pointer;
-		margin-left: 4px;
-	}
-	//row-2
-	.formik-control-result-examMonth {
-		flex-basis: 45%;
-	}
-	.formik-control-result-examYear {
-		flex-basis: 30%;
-	}
-	.formik-control-result-type {
-		flex-basis: 25%;
-	}
+  //new-result
+  //row-1
+  .formik-control-result-fspuId {
+    flex-basis: 80%;
+  }
+  .formik-control-result-sem {
+    flex-basis: 10%;
+  }
+  .load-subjects {
+    flex-basis: 10%;
+    margin-top: 0.7rem;
+    cursor: pointer;
+    margin-left: 4px;
+  }
+  //row-2
+  .formik-control-result-examMonth {
+    flex-basis: 45%;
+  }
+  .formik-control-result-examYear {
+    flex-basis: 30%;
+  }
+  .formik-control-result-type {
+    flex-basis: 25%;
+  }
 
-	// Subject Marks
-	#sCode {
-		flex-basis: 26%;
-	}
-	#sName {
-		flex-basis: 26%;
-	}
-	#internal {
-		flex-basis: 12%;
-	}
-	#external {
-		flex-basis: 12%;
-	}
-	#total {
-		flex-basis: 12%;
-	}
-	#final {
-		flex-basis: 12%;
-	}
-	#new-marks {
-		margin: 1rem 0.75rem;
-		width: fit-content;
-		border: 2px solid #555;
-		border-radius: 0.3em;
-		padding: 0.6em;
-	}
-	#new-subject {
-		margin: 1rem 0.75rem;
-		max-width: 30%;
-		border: 2px solid #555;
-		background-color: #fff;
-		border-radius: 0.3em;
-		padding: 0.6em;
-		color: #000;
-	}
+  // Subject Marks
+  #sCode {
+    flex-basis: 26%;
+  }
+  #sName {
+    flex-basis: 26%;
+  }
+  #internal {
+    flex-basis: 12%;
+  }
+  #external {
+    flex-basis: 12%;
+  }
+  #total {
+    flex-basis: 12%;
+  }
+  #final {
+    flex-basis: 12%;
+  }
+  #new-marks {
+    margin: 1rem 0.75rem;
+    width: fit-content;
+    border: 2px solid #555;
+    border-radius: 0.3em;
+    padding: 0.6em;
+  }
+  #new-subject {
+    margin: 1rem 0.75rem;
+    max-width: 30%;
+    border: 2px solid #555;
+    background-color: #fff;
+    border-radius: 0.3em;
+    padding: 0.6em;
+    color: #000;
+  }
 }
 #new-subject {
-	flex-basis: 88%;
-	background: var(--bg2);
-	color: var(--fg2);
-	// padding: 0.8em;
-	// border: 3px solid var(--fg2);
+  flex-basis: 88%;
+  background: var(--bg2);
+  color: var(--fg2);
+  // padding: 0.8em;
+  // border: 3px solid var(--fg2);
 
-	// border-radius: 0.25rem;
-	// cursor: pointer;
-	// display: flex;
-	// justify-content: center;
-	// align-items: center;
-	// border: solid 3px #ddd;
-	// font-size: 40px;
-	// user-select: none;
-	// // Sorry, just OCD ^_^
-	&:hover {
-		opacity: 0.8;
-		// color: var(--fg1);
-		// border-color: var(--accent);
-	}
+  // border-radius: 0.25rem;
+  // cursor: pointer;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // border: solid 3px #ddd;
+  // font-size: 40px;
+  // user-select: none;
+  // // Sorry, just OCD ^_^
+  &:hover {
+    opacity: 0.8;
+    // color: var(--fg1);
+    // border-color: var(--accent);
+  }
 }
 #submit {
-	font-family: $font2;
-	flex-basis: 10%;
-	// padding: 0.8em;
-	border-radius: 5px;
-	color: #fff;
-	background-color: var(--accent);
-	margin-left: 1em;
-	// border: 3px solid var(--fg1);
+  font-family: $font2;
+  flex-basis: 10%;
+  // padding: 0.8em;
+  border-radius: 5px;
+  color: #fff;
+  background-color: var(--accent);
+  margin-left: 1em;
+  // border: 3px solid var(--fg1);
 }
 #sub-entry {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
 #remove-sub-btn {
-	padding: 0;
-	background: none;
-	svg {
-		height: 24px;
-	}
-	// border-radius: 50%;
+  padding: 0;
+  background: none;
+  svg {
+    height: 24px;
+  }
+  // border-radius: 50%;
 }
 
 // Student Detail
 table#transcript {
-	tr {
-		min-width: 50em;
-		@include flex($justify: space-between);
-		td {
-			margin: 5px;
-			padding: 5px 10px;
-			width: 100%;
-			border-radius: 4px;
+  tr {
+    min-width: 50em;
+    @include flex($justify: space-between);
+    td {
+      margin: 5px;
+      padding: 5px 10px;
+      width: 100%;
+      border-radius: 4px;
 
-			background: var(--bg2);
-			&:nth-of-type(2) {
-				text-align: right;
-				font-weight: 700;
-			}
-		}
-	}
+      background: var(--bg2);
+      &:nth-of-type(2) {
+        text-align: right;
+        font-weight: 700;
+      }
+    }
+  }
 }

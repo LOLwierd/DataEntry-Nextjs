@@ -15,18 +15,34 @@ enum Title {
   Mrs
 }
 
+model Batch {
+  batchId Int       @id @default(autoincrement())
+  batch   String
+  Student Student[]
+  Subject Subject[]
+}
+
+model Course {
+  courseId Int       @id @default(autoincrement())
+  course   String
+  Student  Student[]
+  Subject  Subject[]
+}
+
 model Student {
   spuId       String   @id @db.VarChar(16)
   title       Title
   firstName   String
   middleName  String
   lastName    String
-  batch       String
-  course      String
+  batch       Batch    @relation(fields: [batchId], references: [batchId])
+  course      Course   @relation(fields: [courseId], references: [courseId])
   nationality String
   dob         String
   address     String
   Result      Result[]
+  batchId     Int
+  courseId    Int
 }
 
 model Result {
@@ -45,12 +61,14 @@ model Result {
 }
 
 model Subject {
-  subCode String  @id
-  subName String
-  sem     String
-  course  String
-  batch   String
-  Marks   Marks[]
+  subCode  String  @id
+  subName  String
+  sem      String
+  batch    Batch   @relation(fields: [batchId], references: [batchId])
+  course   Course  @relation(fields: [courseId], references: [courseId])
+  Marks    Marks[]
+  batchId  Int
+  courseId Int
 }
 
 model Marks {
