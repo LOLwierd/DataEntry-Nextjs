@@ -39,13 +39,7 @@ async function subjectQuery(subjectQuery: SubjectQuery, res: NextApiResponse) {
     where: subjectQuery,
     select: { subCode: true, subName: true },
   });
-  const subjects = results.map((subject) => {
-    return {
-      subjectSubCode: subject.subCode,
-      subName: subject.subName,
-    };
-  });
-  res.json(subjects);
+  res.json(results);
 }
 
 async function subjectResultQuery(

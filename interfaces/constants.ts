@@ -2,6 +2,7 @@
 export const BATCHES = ["2018-2019", "2019-2020", "2020-2021"]
 export const SEM = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 export const MONTH = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+export const NATIONALITY = ["Indian", "Other"]
 export const YEAR = [
    '2016',
    '2017',
@@ -24,7 +25,7 @@ export enum ExamTypes {
 }
 
 export enum Courses {
-   Architecture = "Bachelor of Architecture", Interior = "Bachelor of Interior Design"
+   "Architecture" = "Bachelor of Architecture", "Interior" = "Bachelor of Interior Design"
 }
 // SEM = (("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5"),
 //        ("6", "6"), ("7", "7"), ("8", "8"), ("9", "9"), ("10", "10"))
