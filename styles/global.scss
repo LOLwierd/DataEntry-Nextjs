@@ -68,7 +68,8 @@ button {
 	&:active {
 		transform: scale(0.98);
 	}
-	&:hover {
+	&:hover,
+	&.active {
 		background-color: var(--bg2);
 		color: var(--fg2);
 		svg {

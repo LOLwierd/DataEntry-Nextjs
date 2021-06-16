@@ -131,7 +131,7 @@ main {
 		padding: 0.7em 0.8em;
 	}
 }
-#student-list {
+#list {
 	margin: 0 auto;
 	li {
 		@include flex($justify: space-between);

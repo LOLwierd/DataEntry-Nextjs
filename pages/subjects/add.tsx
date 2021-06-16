@@ -9,6 +9,8 @@ import "nprogress/nprogress.css";
 import Context from "../../utils/Context";
 import dynamic from "next/dynamic";
 import { Subject } from "@prisma/client";
+import prisma from '../../lib/prisma';
+import { GetServerSideProps } from 'next';
 const PrivateRoute = dynamic(() => import("../../utils/PrivateRoute"), {
   ssr: false,
 });
@@ -18,9 +20,11 @@ interface FormikInitialValues {
   subjects: { subCode: string; subName: string }[];
 }
 
-export default function CreateResult() {
+export default function CreateResult({ data }: { data: Subject[] }) {
   const [numSub, setAddSub] = useState(1);
   const { setError, setInfo } = useContext(Context);
+  const [searchItem, setSearchItem] = useState<string | null>(null);
+  const [subjectData, setSubjectData] = useState(data)
   const [subjects, setSubjects] = useState<FormikInitialValues["subjects"]>([]);
   const initialValues: FormikInitialValues = {
     subject: {
@@ -30,6 +34,21 @@ export default function CreateResult() {
     },
     subjects: [],
   };
+  useEffect(() => {
+    // console.log("use effect called ", searchItem);
+    if (searchItem) {
+      if (searchItem.length > 0)
+        setSubjectData(
+          data.filter(
+            (d) =>
+              d.subCode.includes(searchItem) ||
+              d.subName.toLowerCase().includes(searchItem.toLowerCase())
+          )
+        );
+    }
+    else setSubjectData(data);
+
+  }, [searchItem]);
   const getSubjects = async (values: FormikInitialValues["subject"]) => {
     const { course, batch, sem } = values;
     console.log(values);
@@ -90,12 +109,68 @@ export default function CreateResult() {
         NProgress.done();
       });
   };
+  const getAllSubjects = async () => {
+    await axios
+      .get("/api/subject")
+      .then((r) => {
+        const subjects = r.data.map(
+          (subject: Pick<Subject, "subCode" | "subName">) => {
+            return { ...subject, enabled: false };
+          }
+        );
+        setSubjects(subjects);
+        if (r.data.length === 0) setError("No Subjects found!!");
+        else setInfo("Subjects Loaded!!");
+      })
+      .catch((e) => {
+        console.error(e);
+        setError("Error in loading subjects!");
+      })
+  }
+
   return (
     <PrivateRoute>
       <aside>
-        <h2>Add Subject</h2>
+        <form
+          id="search"
+        // onSubmit={(e) => {
+        // 	e.preventDefault();
+        // 	// @ts-ignore
+        // 	setSearchItem(e.target.search.value);
+        // }}
+        >
+          <input
+            type="search"
+            name="search"
+            placeholder="Subject Name/Code"
+            onChange={(e) => setSearchItem(e.target.value)}
+          />
+          {/* <button className="grey">Advanced</button> */}
+          <button className="primary" type="submit">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+              <path d="M21 3C11.602 3 4 10.602 4 20s7.602 17 17 17c3.355 0 6.46-.984 9.094-2.656l12.281 12.281 4.25-4.25L34.5 30.281C36.68 27.421 38 23.88 38 20c0-9.398-7.602-17-17-17zm0 4c7.2 0 13 5.8 13 13s-5.8 13-13 13S8 27.2 8 20 13.8 7 21 7z" />
+            </svg>
+          </button>
+        </form>
+        {data.length === 0 ? (
+          <h3 style={{ margin: '0.8em 1em', textAlign: 'center' }}>No Match Found</h3>
+        ) :
+          (<ul id="list">
+            {subjectData.map((subject) => (
+              <li>
+                <b>{subject.subName}</b>
+                <span>{subject.subCode}</span>
+              </li>
+            )
+            )}
+          </ul>
+
+          )
+        }
       </aside>
       <main className='sided'>
+        <h2>Add Subject</h2>
+        <br />
         <Formik
           initialValues={initialValues}
           onSubmit={(values, { resetForm }) =>
@@ -266,6 +341,15 @@ export default function CreateResult() {
           }}
         </Formik>
       </main>{" "}
-    </PrivateRoute>
+    </PrivateRoute >
   );
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  // TODO: Implement pagination
+  const subjects = await prisma.subject.findMany({})
+
+  return {
+    props: { data: subjects },
+  };
 }
