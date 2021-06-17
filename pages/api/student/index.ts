@@ -26,28 +26,13 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse<any>) {
     });
     res.json(result);
   } catch (e) {
-    console.log(e)
+    console.log(e);
     res.status(500).end();
   }
 }
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
-  const query = req.query;
-
-  if (query) {
-    const studentsData = await prisma.student.findMany({});
-    res.json(studentsData);
-    return;
-  }
-  const studentsData = await prisma.student.findMany({
-    select: { spuId: true, firstName: true, lastName: true },
-  });
-  const students = studentsData.map((sD) => {
-    return {
-      spuId: sD.spuId,
-      name: sD.firstName + " " + sD.lastName,
-    };
-  });
-
-  res.json(students);
+  const studentsData = await prisma.student.findMany({});
+  res.json(studentsData);
+  return;
 }

@@ -1,17 +1,17 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { Subject } from '@prisma/client';
-import prisma from '../../../lib/prisma';
-import { SubjectQuery, SubjectResultQuery } from '../../../interfaces';
+import { NextApiRequest, NextApiResponse } from "next";
+import { Subject } from "@prisma/client";
+import prisma from "../../../lib/prisma";
+import { SubjectQuery, SubjectResultQuery } from "../../../interfaces";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   switch (req.method) {
-    case 'GET':
+    case "GET":
       await handleGET(req, res);
       break;
-    case 'POST':
+    case "POST":
       await handlePOST(req, res);
       break;
     default:
@@ -22,18 +22,18 @@ export default async function handler(
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
   const subjectData: Subject[] = req.body;
-  console.log(subjectData)
+  console.log(subjectData);
   const result = await prisma.subject.createMany({ data: subjectData });
   res.json(result);
 }
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
-  if (req.query['spuId'])
+  if (req.query["spuId"])
     // @ts-ignore
     subjectResultQuery(req.query, res);
   else {
-    const results = prisma.subject.findMany({})
-    res.json(results)
+    const results = prisma.subject.findMany({});
+    res.json(results);
   }
 }
 
@@ -60,6 +60,10 @@ async function subjectResultQuery(
       return {
         subjectSubCode: subject.subCode,
         subName: subject.subName,
+        internal: undefined,
+        internalTotal: undefined,
+        external: undefined,
+        externalTotal: undefined,
       };
     });
     res.json(subjects);
