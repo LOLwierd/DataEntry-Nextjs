@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { IReport, Report } from "../../../interfaces";
 import prisma from "../../../lib/prisma";
+import { completeMarks, completeReport, completeResult } from "../../../utils";
 
 export default async function handler(
   req: NextApiRequest,
@@ -25,7 +27,7 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse<any>) {
 async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
   // @ts-ignore
   const { spuId } = req.query as string;
-  const students = await prisma.student.findUnique({
+  const students: IReport | null = await prisma.student.findUnique({
     where: { spuId },
     include: {
       Result: {
@@ -40,6 +42,7 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
     },
   });
   if (students) {
-    res.json(students);
+    const report: Report = completeReport(students)
+    res.json(report);
   } else res.status(404).end();
 }

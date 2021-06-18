@@ -1,6 +1,16 @@
-import { Marks, Result } from "@prisma/client";
-import { MarksI, ResultI, ResultMarksI } from "../interfaces";
-import { v4 as uuidv4 } from 'uuid';
+import { Marks, Result, Student, Subject } from "@prisma/client";
+import {
+  IReport,
+  MarksI,
+  Report,
+  ReportMarks,
+  ReportResult,
+  ReportWCPI,
+  ResultI,
+  ResultMarksI,
+  ResultWCPI,
+} from "../interfaces";
+import { v4 as uuidv4 } from "uuid";
 
 declare global {
   interface Number {
@@ -33,12 +43,16 @@ function calculatePercentage(
   externalTotal: number
 ): number {
   try {
-    return ((internal + external) / (internalTotal + externalTotal)) * 100;
+    return Number.parseFloat(
+      (((internal + external) / (internalTotal + externalTotal)) * 100).toFixed(
+        2
+      )
+    );
   } catch (e) {
     const error = e as Error;
     throw Error(
       "Error in percentage!! Maybe you forgot to send some attributes?\n" +
-      error.message
+        error.message
     );
   }
 }
@@ -132,4 +146,48 @@ export function completeResult(resultI: ResultMarksI): {
   resultData.spi = calculateSPI(marksData);
   resultData.id = uuid;
   return { resultData, marksData };
+}
+
+function calculateCPI(SPIs: number[]): number {
+  return Number.parseFloat(
+    (SPIs.reduce((prev, curr) => prev + curr, 0) / SPIs.length).toFixed(2)
+  );
+}
+
+function calculateCPIs(iReport: IReport): ReportWCPI {
+  var SPIs: number[] = [];
+  var report: ReportWCPI = Object.assign(iReport);
+  report!.Result = iReport.Result.map((result) => {
+    var reportResult: ResultWCPI = Object.assign(result);
+    SPIs.push(reportResult.spi)
+    reportResult.cpi = calculateCPI(SPIs);
+    return reportResult;
+  });
+  return report;
+}
+
+function calculateMarks(resultsWcpi: ResultWCPI[]): ReportResult[] {
+  const reportResults: ReportResult[] = resultsWcpi.map((result) => {
+    const marks: (ReportMarks & { subject: Subject })[] = result.Marks.map(
+      (mark) => {
+        const rMark: ReportMarks & { subject: Subject } = Object.assign(mark);
+        rMark.marks = mark.internal + mark.external;
+        rMark.totalMarks = mark.internalTotal + mark.externalTotal;
+        return rMark;
+      }
+    );
+    const rResult: ReportResult = Object.assign(result);
+    rResult.Marks = marks;
+    return rResult;
+  });
+  return reportResults;
+}
+
+export function completeReport(iReport: IReport): Report {
+  const reportWcpi = calculateCPIs(iReport);
+  console.log("ReportWCPI is", reportWcpi);
+  var report: Report = Object.assign(reportWcpi);
+  report.Result = calculateMarks(reportWcpi.Result);
+  console.log("Report is", report);
+  return report;
 }

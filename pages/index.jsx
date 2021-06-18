@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import dynamic from "next/dynamic";
 import EmptyComponent from "../components/EmptyComponent";
 const PrivateRoute = dynamic(() => import("../utils/PrivateRoute"), {

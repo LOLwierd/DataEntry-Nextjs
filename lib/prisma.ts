@@ -10,7 +10,7 @@ if (process.env.NODE_ENV === "production") {
     globalAny.prisma = new PrismaClient({
       log: ["query", "info", `warn`, `error`],
     });
-    globalAny.prisma.$on("query", async (e: any) => {
+    globalAny.prisma.$on("query", (e: any) => {
       console.log(`${e.query} ${e.params}`);
     });
   }
