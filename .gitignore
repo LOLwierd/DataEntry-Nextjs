@@ -1,5 +1,6 @@
 node_modules/
 .log
 .log/
+logs/
 .next
 yarn.lock

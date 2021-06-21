@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
-import logger from '../../../lib/logger';
+import { logger } from '../../../lib/logger';
 
 export default NextAuth({
   logger: {

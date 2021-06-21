@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import moment from "moment";
 import FormikControl from "../../utils/FormikControl";
-import { BATCHES, Courses } from "../../interfaces/constants";
 import axios from "axios";
 import Context from "../../utils/Context";
 import NProgress from "nprogress"; //nprogress module
@@ -10,8 +9,8 @@ import "nprogress/nprogress.css"; //styles of nprogress
 import * as Yup from "yup";
 import dynamic from "next/dynamic";
 import { Student } from "@prisma/client";
-import EmptyComponent from "../../components/EmptyComponent";
 import { GetServerSideProps } from "next";
+import { logger } from "../../lib/logger";
 const PrivateRoute = dynamic(() => import("../../utils/PrivateRoute"), {
   ssr: false,
 });
@@ -109,11 +108,11 @@ export default function CreateStudent({ data }: { data: StudentAdd[] }) {
       <aside>
         <form
           id="search"
-          // onSubmit={(e) => {
-          // 	e.preventDefault();
-          // 	// @ts-ignore
-          // 	setSearchItem(e.target.search.value);
-          // }}
+        // onSubmit={(e) => {
+        // 	e.preventDefault();
+        // 	// @ts-ignore
+        // 	setSearchItem(e.target.search.value);
+        // }}
         >
           <input
             type="search"
@@ -225,19 +224,25 @@ export default function CreateStudent({ data }: { data: StudentAdd[] }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  // TODO: Implement pagination
-  const res = await fetch("http://localhost:3000/api/student?all=true");
-  const data = await res.json();
-  const students = data.map((student: Student) => {
-    let stu = Object.assign(student);
-    stu["name"] =
-      student.firstName + " " + student.middleName + " " + student.lastName;
-    delete stu["firstName"];
-    delete stu["middleName"];
-    delete stu["lastName"];
-    return stu;
-  });
-  return {
-    props: { data: students },
-  };
+  try {
+    // TODO: Implement pagination
+    const res = await axios.get("http://localhost:3000/api/student?all=true");
+    const data = res.data;
+    const students = data.map((student: Student) => {
+      let stu = Object.assign(student);
+      stu["name"] =
+        student.firstName + " " + student.middleName + " " + student.lastName;
+      delete stu["firstName"];
+      delete stu["middleName"];
+      delete stu["lastName"];
+      return stu;
+    });
+    return {
+      props: { data: students },
+    }
+  } catch (e) {
+    //TODO I think this is bad. kuch karna pdega iska
+    logger.error(`Error in /students/add: ${e}`)
+    throw e;
+  }
 };

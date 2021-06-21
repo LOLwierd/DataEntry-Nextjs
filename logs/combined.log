@@ -1,9 +1,0 @@
-info: Calling authorize with credentials: {
-  "username": "admi",
-  "password": "admi",
-  "callbackUrl": "/",
-  "csrfToken": "f046631f19113233d6885a793e82d4d2b83d9d3fa00ca630737189990c596baa",
-  "json": "true"
-}
-warn: Credentials invalid!
-warn: NEXTAUTH_URL {"0":"NEXTAUTH_URL environment variable not set"}

@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import logger from "../../../lib/logger";
 import prisma from "../../../lib/prisma";
 
 export default async function handler(
@@ -7,6 +8,7 @@ export default async function handler(
 ) {
   switch (req.method) {
     case "GET":
+      logger.info("Calling get for bacth")
       await handleGET(req, res);
       break;
     case "POST":
