@@ -15,7 +15,7 @@ app.prepare().then(() => {
     const { pathname, query } = parsedUrl
     if (pathname)
       if (!pathname.includes("_next"))
-        logger.info(`Calling path: ${pathname}. With query: ${JSON.stringify(query, null, 2)}`)
+        logger.info(`${req.method} Calling path: ${pathname}. With query: ${JSON.stringify(query, null, 2)}`)
 
     // if (pathname === '/a') {
     //   app.render(req, res, '/a', query)

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import axios from "axios";
 import { FieldArray, Form, Formik } from "formik";
 import FormikControl from "../../utils/FormikControl";
-import { SEM } from "../../interfaces/constants";
+import { SEM } from "../../types/constants";
 import { useEffect, useState } from "react";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";

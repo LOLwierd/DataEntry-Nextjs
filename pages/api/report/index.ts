@@ -1,7 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { IReport, Report } from "../../../interfaces";
+import { IReport, Report } from "../../../types";
 import prisma from "../../../lib/prisma";
 import { completeMarks, completeReport, completeResult } from "../../../utils";
+import ELog from "../../../utils/ELog";
+import { logger } from "../../../lib/logger"
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,10 +11,10 @@ export default async function handler(
 ) {
   switch (req.method) {
     case "GET":
-      await handleGET(req, res);
+      await ELog(handleGET, req, res);
       break;
     case "POST":
-      await handlePOST(req, res);
+      await ELog(handlePOST, req, res);
       break;
     default:
       res.status(405).end();
@@ -25,29 +27,28 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse<any>) {
 }
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
-  try {
-    // @ts-ignore
-    const { spuId } = req.query as string;
-    const students: IReport | null = await prisma.student.findUnique({
-      where: { spuId },
-      include: {
-        Result: {
-          include: {
-            Marks: {
-              include: {
-                subject: true,
-              },
+  // @ts-ignore
+  const { spuId } = req.query as string;
+  logger.info(`Attempting to Fetch report for student ${spuId}`)
+  const result: IReport | null = await prisma.student.findUnique({
+    where: { spuId },
+    include: {
+      Result: {
+        include: {
+          Marks: {
+            include: {
+              subject: true,
             },
           },
         },
       },
-    });
-    if (students) {
-      const report: Report = completeReport(students)
-      res.json(report);
-    } else res.status(404).end();
-  } catch (e) {
-    console.log(e);
-    throw e;
+    },
+  });
+  if (result) {
+    const report: Report = completeReport(result)
+    res.json(report);
+  } else {
+    logger.warn(`No report found for student ${spuId}!`)
+    res.status(404).end();
   }
 }
