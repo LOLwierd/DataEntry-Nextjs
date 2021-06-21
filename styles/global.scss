@@ -148,7 +148,7 @@ input[type='radio'].tag {
 		vertical-align: middle;
 		transition: 0.2s;
 		margin: 0.4rem 0.4rem 0.6rem 0;
-		padding: 0.5em 0.8em;
+		padding: 0.6em 0.8em;
 		border: 2px solid var(--fg2);
 		border-radius: 0.4em;
 	}
@@ -208,7 +208,7 @@ form {
 		font-weight: 700;
 		letter-spacing: 0.8px;
 		color: var(--fg2);
-		text-transform: capitalize;
+		// text-transform: capitalize;
 	}
 	// label,
 	// .form-control {
@@ -225,10 +225,7 @@ form {
 	// 		font-weight: 600;
 	// 	}
 	// }
-	.row {
-		width: 100%;
-		@include flex($justify: space-between, $wrap: nowrap, $align: flex-start);
-	}
+
 	// &#student-form {
 	// 	p {
 	// 		display: inline-block;
@@ -269,14 +266,26 @@ form {
 	}
 }
 
-.col-2 {
-	flex-basis: 50%;
-}
-.col-3 {
-	flex-basis: 33.3%;
-}
-.col-4 {
-	flex-basis: 25%;
+.row {
+	width: 100%;
+	@include flex($justify: space-between, $wrap: nowrap, $align: flex-start);
+	// Even Parts
+	.col-2 {
+		flex-basis: 50%;
+	}
+	.col-4 {
+		flex-basis: 25%;
+	}
+	.col-8 {
+		flex-basis: 12.5%;
+	}
+	// Odd Parts
+	.col-3 {
+		flex-basis: 33.33%;
+	}
+	.col-6 {
+		flex-basis: 66.66%;
+	}
 }
 
 .card {
