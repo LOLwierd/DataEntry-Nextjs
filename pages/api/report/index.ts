@@ -25,24 +25,29 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse<any>) {
 }
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
-  // @ts-ignore
-  const { spuId } = req.query as string;
-  const students: IReport | null = await prisma.student.findUnique({
-    where: { spuId },
-    include: {
-      Result: {
-        include: {
-          Marks: {
-            include: {
-              subject: true,
+  try {
+    // @ts-ignore
+    const { spuId } = req.query as string;
+    const students: IReport | null = await prisma.student.findUnique({
+      where: { spuId },
+      include: {
+        Result: {
+          include: {
+            Marks: {
+              include: {
+                subject: true,
+              },
             },
           },
         },
       },
-    },
-  });
-  if (students) {
-    const report: Report = completeReport(students)
-    res.json(report);
-  } else res.status(404).end();
+    });
+    if (students) {
+      const report: Report = completeReport(students)
+      res.json(report);
+    } else res.status(404).end();
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
 }

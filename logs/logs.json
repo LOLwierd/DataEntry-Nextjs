@@ -1,0 +1,3 @@
+{"message":"Calling authorize with credentials: {\n  \"username\": \"admi\",\n  \"password\": \"admi\",\n  \"callbackUrl\": \"/\",\n  \"csrfToken\": \"f046631f19113233d6885a793e82d4d2b83d9d3fa00ca630737189990c596baa\",\n  \"json\": \"true\"\n}","level":"info"}
+{"message":"Credentials invalid!","level":"warn"}
+{"0":"NEXTAUTH_URL environment variable not set","level":"warn","message":"NEXTAUTH_URL"}

@@ -1,5 +1,5 @@
 import { getCsrfToken, signIn } from "next-auth/client";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Formik, Form } from "formik";
 import FormikControl from "../utils/FormikControl";
 import Context from "../utils/Context";
@@ -8,9 +8,13 @@ import { useRouter } from "next/router";
 export default function Login({ csrfToken }) {
   const { setError } = useContext(Context);
   const router = useRouter();
-  if (router.query?.error) {
-    setError("Invalid credentials!");
-  }
+
+  useEffect(() => {
+    if (router.query?.error) {
+      setError("Invalid credentials!");
+    }
+  }, [])
+
   return (
     <>
       <div id="login">
