@@ -316,8 +316,9 @@ main {
 		flex-basis: 12%;
 	}
 	#new-marks {
-		margin: 1rem 0.75rem;
+		margin: 1rem 0.4em;
 		width: fit-content;
+		max-width: 40em;
 		border: 2px solid var(--fg2);
 		border-radius: 0.3em;
 		padding: 0.6em;

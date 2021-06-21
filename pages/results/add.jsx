@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import axios from 'axios';
 import { FieldArray, Form, Formik, yupToFormErrors } from 'formik';
 import FormikControl from '../../utils/FormikControl';
-import { ExamTypes, Months, SEM, YEAR } from '../../interfaces/constants';
+import { ExamTypes, Months, SEM, YEAR } from '../../types/constants';
 import { useEffect, useState } from 'react';
 import Context from '../../utils/Context';
 import NProgress from 'nprogress'; //nprogress module
@@ -43,12 +43,14 @@ export default function CreateResult({ students }) {
 			Yup.object().shape({
 				internal: Yup.number()
 					.min(0)
-					.max(Yup.ref('internalTotal'), 'Greater than Internal Total')
+					.max(Yup.ref('internalTotal'), "Can't Greater than Internal Total")
 					.required('Required'),
 				internalTotal: Yup.number().required('Required'),
-				external: Yup.number().required('Required'),
 				externalTotal: Yup.number().required('Required'),
-
+				external: Yup.number()
+					.min(0)
+					.max(Yup.ref('externalTotal'), "Can't Greater than External Total")
+					.required('Required'),
 				// Rest of your amenities object properties
 			})
 		),
@@ -223,11 +225,13 @@ export default function CreateResult({ students }) {
                   </button> */}
 											<div
 												className="row"
-												style={{ flexWrap: 'wrap', justifyContent: 'center' }}
+												style={{
+													flexWrap: 'wrap',
+													justifyContent: 'flex-start',
+												}}
 											>
 												{values.marks.length > 0 &&
 													values.marks.map((mark, index) => {
-														console.log(mark);
 														return (
 															<div id="new-marks" key={index}>
 																<div
