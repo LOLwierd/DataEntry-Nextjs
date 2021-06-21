@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ReportResult } from "../../interfaces";
+import { ReportResult } from "../../types";
 import { GetServerSideProps } from 'next'
 import axios from "axios";
 

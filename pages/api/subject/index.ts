@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { Subject } from "@prisma/client";
 import prisma from "../../../lib/prisma";
-import { SubjectQuery, SubjectResultQuery } from "../../../interfaces";
+import { SubjectQuery, SubjectResultQuery } from "../../../types";
+import ELog from "../../../utils/ELog";
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,10 +10,10 @@ export default async function handler(
 ) {
   switch (req.method) {
     case "GET":
-      await handleGET(req, res);
+      await ELog(handleGET, req, res);
       break;
     case "POST":
-      await handlePOST(req, res);
+      await ELog(handlePOST, req, res);
       break;
     default:
       res.status(405).end();
@@ -51,7 +52,6 @@ async function subjectResultQuery(
       batch: student.batch,
       course: student.course,
     };
-    console.log(query);
     const results = await prisma.subject.findMany({
       where: query,
       select: { subCode: true, subName: true },

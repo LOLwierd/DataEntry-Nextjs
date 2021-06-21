@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import logger from "../../../lib/logger";
 import prisma from "../../../lib/prisma";
+import ELog from '../../../utils/ELog';
 
 export default async function handler(
   req: NextApiRequest,
@@ -8,11 +8,10 @@ export default async function handler(
 ) {
   switch (req.method) {
     case "GET":
-      logger.info("Calling get for bacth")
-      await handleGET(req, res);
+      await ELog(handleGET, req, res);
       break;
     case "POST":
-      await handlePOST(req, res);
+      await ELog(handlePOST, req, res);
       break;
     default:
       res.status(405).end();
