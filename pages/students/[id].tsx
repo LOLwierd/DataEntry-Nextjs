@@ -24,8 +24,8 @@ export default function StudentIndi({ report }: { report: ReportResult }) {
           </tr>
         </thead>
         <tr>
-          <td rowspan={6}>Jul'15 to Dec'15</td>
-          <td colspan={1}>B Arch. Semester 1</td>
+          <td rowSpan={6}>Jul'15 to Dec'15</td>
+          <td colSpan={1}>B Arch. Semester 1</td>
           <td></td>
           <td></td>
           <td></td>
@@ -37,8 +37,8 @@ export default function StudentIndi({ report }: { report: ReportResult }) {
         <tr>
           <td>BASIC DESIGN STUDIO - 1</td>
           <td>A</td>
-          <td rowspan={5}>7.79</td>
-          <td rowspan={5}>7.79</td>
+          <td rowSpan={5}>7.79</td>
+          <td rowSpan={5}>7.79</td>
           <td>187</td>
           <td>250</td>
           <td>74.8</td>
@@ -77,8 +77,8 @@ export default function StudentIndi({ report }: { report: ReportResult }) {
           <td>8</td>
         </tr>
         <tr>
-          <td rowspan={6}>Jul'15 to Dec'15</td>
-          <td colspan={1}>B Arch. Semester 1</td>
+          <td rowSpan={6}>Jul'15 to Dec'15</td>
+          <td colSpan={1}>B Arch. Semester 1</td>
           <td></td>
           <td></td>
           <td></td>
@@ -90,8 +90,8 @@ export default function StudentIndi({ report }: { report: ReportResult }) {
         <tr>
           <td>BASIC DESIGN STUDIO - 1</td>
           <td>A</td>
-          <td rowspan={6}>7.79</td>
-          <td rowspan={6}>7.79</td>
+          <td rowSpan={6}>7.79</td>
+          <td rowSpan={6}>7.79</td>
           <td>187</td>
           <td>250</td>
           <td>74.8</td>
