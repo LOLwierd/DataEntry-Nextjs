@@ -24,7 +24,7 @@ export default function Nav() {
               r="13.5"
               fill="#C4C4C4"
               stroke="#222222"
-              stroke-width="3"
+              strokeWidth="3"
             ></circle>
           </svg>
           <NavLink href="/">
@@ -45,7 +45,7 @@ export default function Nav() {
             <button>SUBJECTS</button>
           </NavLink>
           <NavLink href="/">
-            <button id="new-btn" onclick="location.href='{% url 'search' %}'">
+            <button id="new-btn" onClick="location.href='{% url 'search' %}'">
               SEARCH
             </button>
           </NavLink>

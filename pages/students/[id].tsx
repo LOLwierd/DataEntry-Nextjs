@@ -1,170 +1,92 @@
 import { useEffect } from "react";
-import { Report, ReportResult } from "../../types";
+import { Report } from "../../types";
 import { GetServerSideProps } from "next";
 import axios from "axios";
+import { getRoman, getShortName } from "../../utils";
+import EmptyComponent from "../../components/EmptyComponent";
 
 export default function StudentIndi({ report }: { report: Report }) {
-  useEffect(() => {
-    console.log(report);
-  }, []);
+  let course: string;
+  let CPI: number;
+  if (report) {
+    course = getShortName(report.course.course);
+  }
+  useEffect(() => {}, []);
   return (
     <main>
-      <table id="transcript">
-        <thead>
+      {report ? (
+        <table id="transcript">
+          <thead>
+            <tr>
+              <th>Period</th>
+              <th>Subject</th>
+              <th>Grade</th>
+              <th>SPI</th>
+              <th>CPI</th>
+              <th>Marks Obtained</th>
+              <th>Max Marks</th>
+              <th>Percentage</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          {report.Result.map((result) => {
+            return (
+              <>
+                <tr>
+                  <td rowSpan={result.Marks.length + 1}>Jul'15 to Dec'15</td>
+                  <td colSpan={1}>
+                    {course +
+                      " SEMESTER: " +
+                      getRoman(Number.parseInt(result.sem))}
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                {result.Marks.map((mark, index) => {
+                  return (
+                    <tr>
+                      <td>{mark.subject.subName}</td>
+                      <td>{mark.grade}</td>
+                      {index === 0 && (
+                        <>
+                          <td rowSpan={result.Marks.length}>{result.spi}</td>
+                          <td rowSpan={result.Marks.length}>{result.cpi}</td>
+                        </>
+                      )}
+                      <td>{mark.marks}</td>
+                      <td>{mark.totalMarks}</td>
+                      <td>{mark.percentage}</td>
+                      <td>{mark.percentage}</td>
+                    </tr>
+                  );
+                })}
+              </>
+            );
+          })}
           <tr>
-            <th>Period</th>
-            <th>Subject</th>
-            <th>Grade</th>
-            <th>SPI</th>
-            <th>CPI</th>
-            <th>Marks Obtained</th>
-            <th>Max Marks</th>
-            <th>Percentage</th>
-            <th>Points</th>
+            <td
+              colSpan={9}
+              style={{
+                height: "1em",
+                background: "white",
+                borderLeft: "1px solid white",
+                borderRight: "1px solid white",
+              }}
+            ></td>
           </tr>
-        </thead>
-        {report.Result.map((result) => {
-          return (
-            <>
-              <tr>
-                <td rowSpan={result.Marks.length+1}>Jul'15 to Dec'15</td>
-                <td colSpan={1}>{result.sem}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              {result.Marks.map((mark, index) => {
-                return (
-                  <tr>
-                    <td>{mark.subject.subName}</td>
-                    <td>{mark.grade}</td>
-                    {index === 0 && (
-                      <>
-                        <td rowSpan={result.Marks.length}>{result.spi}</td>
-                        <td rowSpan={result.Marks.length}>{result.cpi}</td>
-                      </>
-                    )}
-                    <td>{mark.marks}</td>
-                    <td>{mark.totalMarks}</td>
-                    <td>{mark.percentage}</td>
-                    <td>{mark.percentage}</td>
-                  </tr>
-                );
-              })}
-            </>
-          );
-        })}
-        {/* <tr>
-          <td rowSpan={6}>Jul'15 to Dec'15</td>
-          <td colSpan={1}>B Arch. Semester 1</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>BASIC DESIGN STUDIO - 1</td>
-          <td>A</td>
-          <td rowSpan={5}>7.79</td>
-          <td rowSpan={5}>7.79</td>
-          <td>187</td>
-          <td>250</td>
-          <td>74.8</td>
-          <td>8</td>
-        </tr>
-        <tr>
-          <td>BASIC DESIGN STUDIO - 1</td>
-          <td>A</td>
-          <td>187</td>
-          <td>250</td>
-          <td>74.8</td>
-          <td>8</td>
-        </tr>
-        <tr>
-          <td>BASIC DESIGN STUDIO - 1</td>
-          <td>A</td>
-          <td>187</td>
-          <td>250</td>
-          <td>74.8</td>
-          <td>8</td>
-        </tr>
-        <tr>
-          <td>BASIC DESIGN STUDIO - 1</td>
-          <td>A</td>
-          <td>187</td>
-          <td>250</td>
-          <td>74.8</td>
-          <td>8</td>
-        </tr>
-        <tr>
-          <td>BASIC DESIGN STUDIO - 1</td>
-          <td>A</td>
-          <td>187</td>
-          <td>250</td>
-          <td>74.8</td>
-          <td>8</td>
-        </tr>
-        <tr>
-          <td rowSpan={6}>Jul'15 to Dec'15</td>
-          <td colSpan={1}>B Arch. Semester 1</td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>BASIC DESIGN STUDIO - 1</td>
-          <td>A</td>
-          <td rowSpan={6}>7.79</td>
-          <td rowSpan={6}>7.79</td>
-          <td>187</td>
-          <td>250</td>
-          <td>74.8</td>
-          <td>8</td>
-        </tr>
-        <tr>
-          <td>BASIC DESIGN STUDIO - 1</td>
-          <td>A</td>
-          <td>187</td>
-          <td>250</td>
-          <td>74.8</td>
-          <td>8</td>
-        </tr>
-        <tr>
-          <td>BASIC DESIGN STUDIO - 1</td>
-          <td>A</td>
-          <td>187</td>
-          <td>250</td>
-          <td>74.8</td>
-          <td>8</td>
-        </tr>
-        <tr>
-          <td>BASIC DESIGN STUDIO - 1</td>
-          <td>A</td>
-          <td>187</td>
-          <td>250</td>
-          <td>74.8</td>
-          <td>8</td>
-        </tr>
-        <tr>
-          <td>BASIC DESIGN STUDIO - 1</td>
-          <td>A</td>
-          <td>187</td>
-          <td>250</td>
-          <td>74.8</td>
-          <td>8</td>
-        </tr> */}
-      </table>
+          <tr>
+            <td colSpan={8}>CUMULATIVE PERFORMANCE INDEX (CPI)</td>
+            <td>{report.Result[report.Result.length - 1].cpi}</td>
+          </tr>
+        </table>
+      ) : (
+        <EmptyComponent />
+      )}
     </main>
   );
 }

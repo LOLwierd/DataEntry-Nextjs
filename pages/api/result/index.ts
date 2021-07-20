@@ -32,5 +32,5 @@ async function handlePOST(req: NextApiRequest, res: NextApiResponse<any>) {
 }
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
-  res.status(405).end();
+  res.send(405);
 }

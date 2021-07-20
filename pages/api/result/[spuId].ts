@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { IReport, Report } from "../../../types";
 import prisma from "../../../lib/prisma";
-import { completeMarks, completeReport, completeResult } from "../../../utils";
+import { completeMarks, completeResult } from "../../../utils";
+import { MarksI, ResultI, ResultMarksI } from "../../../types";
+import { Marks, Result } from "@prisma/client";
 import ELog from "../../../utils/ELog";
-import { logger } from "../../../lib/logger";
 
 export default async function handler(
   req: NextApiRequest,
@@ -23,15 +23,13 @@ export default async function handler(
 }
 
 async function handlePOST(req: NextApiRequest, res: NextApiResponse<any>) {
-  res.status(405).end();
+  res.send(405);
 }
 
 async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
-  // @ts-ignore
-  const { spuId } = req.query as string;
-  logger.info(`Attempting to Fetch report for student ${spuId}`);
-  const result: IReport | null = await prisma.student.findUnique({
-    where: { spuId },
+  const { spuId } = req.query as { spuId: string };
+  const students = await prisma.student.findUnique({
+    where: { spuId: spuId },
     include: {
       Result: {
         include: {
@@ -42,15 +40,9 @@ async function handleGET(req: NextApiRequest, res: NextApiResponse<any>) {
           },
         },
       },
-      course: true,
-      batch: true,
     },
   });
-  if (result && result.Result.length > 0) {
-    const report: Report = completeReport(result);
-    res.json(report);
-  } else {
-    logger.warn(`No report found for student ${spuId}!`);
-    res.status(404).end();
-  }
+  if (students && students.Result.length > 0) {
+    res.json(students.Result);
+  } else res.status(404).json({ messsage: "Results not found!" });
 }

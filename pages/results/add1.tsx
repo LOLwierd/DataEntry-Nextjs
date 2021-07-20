@@ -14,6 +14,7 @@ const PrivateRoute = dynamic(() => import("../../utils/PrivateRoute"), {
 });
 import "nprogress/nprogress.css"; //styles of nprogress
 import { Student } from "@prisma/client";
+import EmptyComponent from "../../components/EmptyComponent";
 
 interface FormikInitialValues {
   result: {
@@ -39,6 +40,8 @@ export default function CreateResult({
   students: { label: string; value: string }[];
 }) {
   const [subjects, setSubject] = useState([]);
+  const [spuId, setSpuId] = useState(null);
+  const [fetchedResults, setFetchedResults] = useState<[] | null>(null);
   const [result, setResult] = useState({
     fspuId: "",
     sem: "1",
@@ -47,6 +50,21 @@ export default function CreateResult({
     type: "",
   });
   const { setError, setInfo } = useContext(Context);
+
+  useEffect(() => {
+    if (spuId) {
+      axios
+        .get(`/api/result/${spuId}`)
+        .then((res) => {
+          console.log(res.data);
+          setFetchedResults(res.data);
+        })
+        .catch((err) => {
+          setFetchedResults([]);
+          setError(err);
+        });
+    }
+  }, [spuId]);
 
   const initialValues: FormikInitialValues = {
     result: result,
@@ -126,7 +144,18 @@ export default function CreateResult({
   return (
     <PrivateRoute>
       <aside>
-        <h2>Add Result</h2>
+        <h2>Result Entries</h2>
+        {fetchedResults ? (
+          fetchedResults.length > 0 ? (
+            fetchedResults.map((result) => (
+              <div>Yo render something in this is guess</div>
+            ))
+          ) : (
+            <EmptyComponent />
+          )
+        ) : (
+          <h1>PLease select a SPUID</h1>
+        )}
       </aside>
       <main className="sided">
         <h2>Add Result</h2>
@@ -146,6 +175,8 @@ export default function CreateResult({
                     label="SPU Id"
                     control="select-search"
                     students={students}
+                    // This is bad code TODO make it better.
+                    changeFunc={setSpuId}
                   />
                   <FormikControl
                     control="select"

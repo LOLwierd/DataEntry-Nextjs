@@ -161,7 +161,7 @@ function calculateCPIs(iReport: IReport): ReportWCPI {
   var report: ReportWCPI = Object.assign(iReport);
   report!.Result = iReport.Result.map((result) => {
     var reportResult: ResultWCPI = Object.assign(result);
-    SPIs.push(reportResult.spi)
+    SPIs.push(reportResult.spi);
     reportResult.cpi = calculateCPI(SPIs);
     return reportResult;
   });
@@ -192,4 +192,25 @@ export function completeReport(iReport: IReport): Report {
   report.Result = calculateMarks(reportWcpi.Result);
   console.log("Report is", report);
   return report;
+}
+
+// return short names for Course.
+export function getShortName(name: string): string {
+  switch (name) {
+    case "Bachelor of Architecture":
+      return "B. Arch";
+    case "Bachelor of Interior Design":
+      return "B. Interior Design";
+    default:
+      return name;
+  }
+}
+
+// returns Roman Numerals for decimal integer between 1 to 10.
+export function getRoman(num: number): string { 
+  if (num < 1 || num > 10) {
+    throw Error("Roman numeral out of range!!!");
+  }
+  const romanNumerals: string[] = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
+  return romanNumerals[num - 1];
 }

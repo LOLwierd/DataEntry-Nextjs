@@ -40,7 +40,7 @@ const customStyles = {
 };
 
 function CustomSelectSearch(props) {
-	const { label, name, students, style, grid, ...rest } = props;
+	const { label, name, students, style, grid, changeFunc, ...rest } = props;
 	return (
 		<div
 			className={`formik-control formik-control-${name.replace(regex, '-')} ${
@@ -62,6 +62,7 @@ function CustomSelectSearch(props) {
 							placeholder="Select a Student"
 							onChange={({ value }) => {
 								setFieldValue(name, value);
+                changeFunc(value);
 							}}
 						/>
 					);

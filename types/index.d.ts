@@ -1,4 +1,4 @@
-import { Marks, Result, Student, Subject } from "@prisma/client";
+import { Batch, Marks, Result, Student, Subject, Course } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export interface SubjectResultQuery {
@@ -25,6 +25,8 @@ export type IReport =
 export type Report =
   | Student & {
     Result: ReportResult[];
+    course: Course;
+    batch: Batch;
   };
 interface ReportMarks
   extends Omit<
