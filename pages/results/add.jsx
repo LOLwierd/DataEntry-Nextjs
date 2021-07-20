@@ -130,10 +130,10 @@ export default function CreateResult({ students }) {
 						return (
 							<Form id="new-entry" style={{ margin: '1em' }}>
 								<FormikControl
-									name="fspuId"
-									label="SPU Id"
-									control="select-search"
-									students={students}
+                  name="fspuId"
+                  label="SPU Id"
+                  control="select-search"
+                  students={students}
 								/>
 
 								<div className="row">

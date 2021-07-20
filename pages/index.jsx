@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import NavLink from "../components/NavLink";
 import EmptyComponent from "../components/EmptyComponent";
+import router from "next/router";
 const PrivateRoute = dynamic(() => import("../utils/PrivateRoute"), {
   ssr: false,
 });
@@ -85,6 +86,11 @@ export default function Home({ data }) {
                             type="button"
                             aria-describedby="tooltip"
                             id="generate"
+                            onClick={async () => {
+                              await router.push(
+                                `/students/${student.spuId}?print=true`
+                              );
+                            }}
                           >
                             <svg
                               aria-hidden="true"

@@ -199,18 +199,27 @@ export function getShortName(name: string): string {
   switch (name) {
     case "Bachelor of Architecture":
       return "B. Arch";
-    case "Bachelor of Interior Design":
-      return "B. Interior Design";
     default:
       return name;
   }
 }
 
 // returns Roman Numerals for decimal integer between 1 to 10.
-export function getRoman(num: number): string { 
+export function getRoman(num: number): string {
   if (num < 1 || num > 10) {
     throw Error("Roman numeral out of range!!!");
   }
-  const romanNumerals: string[] = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
+  const romanNumerals: string[] = [
+    "I",
+    "II",
+    "III",
+    "IV",
+    "V",
+    "VI",
+    "VII",
+    "VIII",
+    "IX",
+    "X",
+  ];
   return romanNumerals[num - 1];
 }

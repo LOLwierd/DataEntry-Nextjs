@@ -368,7 +368,7 @@ table#transcript {
   font-size: 16px;
   margin: auto;
   thead th {
-    padding: 1.2em;
+    padding: 1.2em 0.8em;
   }
   tr {
     min-width: 50em;
@@ -390,5 +390,30 @@ table#transcript {
   td {
     border: 1px solid black;
     border-collapse: collapse;
+  }
+}
+
+@media print {
+  @page {
+    size: landscape;
+    headers: none;
+    footers: none;
+  }
+  #nprogress {
+    display: none;
+  }
+  nav {
+    display: none;
+  }
+  main {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  #print-btn {
+    display: none;
+  }
+  thead th {
+    padding: 0.8em 0.6em;
   }
 }

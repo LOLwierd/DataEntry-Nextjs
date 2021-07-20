@@ -21,8 +21,8 @@ interface FormikInitialValues {
   middleName: string;
   lastName: string;
   spuId: string;
-  batchId: number;
-  courseId: number;
+  batchId: string;
+  courseId: string;
   nationality: string;
   address: string;
   dob: string;
@@ -67,8 +67,8 @@ export default function CreateStudent({ data }: { data: StudentAdd[] }) {
     middleName: "",
     lastName: "",
     spuId: "",
-    batchId: 1,
-    courseId: 1,
+    batchId: "1",
+    courseId: "1",
     nationality: "Indian",
     address: "",
     dob: moment().format("YYYY-MM-DD"),
@@ -81,6 +81,8 @@ export default function CreateStudent({ data }: { data: StudentAdd[] }) {
     await axios
       .post("/api/student", {
         ...values,
+        batchId: Number.parseInt(values.batchId),
+        courseId: Number.parseInt(values.courseId),
         dob: moment(values.dob).format("DD-MM-YYYY"),
       })
       .then((r) => {
@@ -108,11 +110,11 @@ export default function CreateStudent({ data }: { data: StudentAdd[] }) {
       <aside>
         <form
           id="search"
-        // onSubmit={(e) => {
-        // 	e.preventDefault();
-        // 	// @ts-ignore
-        // 	setSearchItem(e.target.search.value);
-        // }}
+          // onSubmit={(e) => {
+          // 	e.preventDefault();
+          // 	// @ts-ignore
+          // 	setSearchItem(e.target.search.value);
+          // }}
         >
           <input
             type="search"
@@ -239,10 +241,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
     });
     return {
       props: { data: students },
-    }
+    };
   } catch (e) {
     //TODO I think this is bad. kuch karna pdega iska
-    logger.error(`Error in /students/add: ${e}`)
+    logger.error(`Error in /students/add: ${e}`);
     throw e;
   }
 };
