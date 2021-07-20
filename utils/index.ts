@@ -36,6 +36,7 @@ function calculateGrade(percentage: number): string {
   throw Error("Percentage out of bounds!!");
 }
 
+// Calculates percentage of a student based on internal and external marks.
 function calculatePercentage(
   internal: number,
   internalTotal: number,
@@ -110,6 +111,7 @@ function calculatePoints(marksI: Partial<Marks>[]): Marks[] {
   return marks;
 }
 
+// Calaculates percentages of students based on marks.
 function calculatePercentages(marksI: MarksI[]): Partial<Marks>[] {
   const marks: Partial<Marks>[] = marksI.map((markI) => {
     let mark: Partial<Marks> = Object.assign(markI);
