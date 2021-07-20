@@ -391,6 +391,17 @@ table#transcript {
     border: 1px solid black;
     border-collapse: collapse;
   }
+  .no-border {
+    td:first-child {
+      font-weight: 700;
+      text-align: left;
+    }
+    td:not(:first-child) {
+      border-right: none;
+      border-left: none;
+      font-weight: 400;
+    }
+  }
 }
 
 @media print {
@@ -415,5 +426,8 @@ table#transcript {
   }
   thead th {
     padding: 0.8em 0.6em;
+  }
+  .printHide {
+    display: initial;
   }
 }
